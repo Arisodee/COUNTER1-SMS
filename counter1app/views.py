@@ -17,7 +17,7 @@ from django.core.mail import EmailMessage
 
 def signup(request):  
     if request.method == 'GET':  
-        return render(request, 'accounts/signup.html')  
+        return render(request, 'registration/signup.html')  
     if request.method == 'POST':  
         form = SignUpForm(request.POST)  
         # print(form.errors.as_data())  
