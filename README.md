@@ -11,15 +11,6 @@ COUNTER1-SMS offers simple SMS solutions by providing users with the ability to 
     python --version
     >> Python 3.x.x
     ```
--   Install pipenv:
-    ```
-    pip3 install pipenv
-    ```
--   Check pipenv is installed:
-    ```
-    pipenv --version
-    >> pipenv, version 2020.11.15
-    ```
 -   Check that postgres is installed:
     ```
     postgres --version
@@ -47,23 +38,12 @@ COUNTER1-SMS offers simple SMS solutions by providing users with the ability to 
     ```
     git clone https://github.com/Arisodee/COUNTER1-SMS.git
     ```
-
 - Create  virtual environment
-    ```
-    pipenv --python 3.x
-    ```
-- Turn off a virtual environment  
-    ```
-    exit
-    ```
-- Spawn a shell in a virtual environment
-    ```
-    pipenv shell
-    ```
-- Install dependencies
-    ```
-   pipenv sync 
-    ```
+    `python3.x -m venv virtual && source virtual/bin/activate`
+    
+- Install dependancies that will create an environment for the app to run 
+    `pip3 install -r requirements.txt`
+
 - Create Application environment variables and save them in .env file 
     ```
     DJANGO_READ_DOT_ENV_FILE=True
@@ -74,10 +54,7 @@ COUNTER1-SMS offers simple SMS solutions by providing users with the ability to 
     DB_HOST='127.0.0.1'
     SECRET_KEY='super_secret'
     ```
-- Add the variables in the .env file to path
-    ```
-    source .env
-    ```
+
 - Running migrations
     - Initial migration commands
         ```
@@ -90,13 +67,13 @@ COUNTER1-SMS offers simple SMS solutions by providing users with the ability to 
     ```
 
 
-### Merge Request Process
+### Pull Request Process
 -   A contributor shall identify a task to be done
 -   If there is a bug , feature or chore that has not been included among the tasks, the contributor can add it only after consulting the owner of this repository and the task being accepted.
 -   The Contributor shall then create a branch off the `development` branch where they are expected to undertake their tasks
 -   After undertaking the task, a fully detailed pull request shall be submitted to the owner of this repository for review.
 -   If there any changes requested ,it is expected that these changes shall be effected and the pull request resubmitted for review.Once all the changes are accepted, the pull request shall be closed and the changes merged into `development` by the owner of this repository.
--   There should be only one commit per Merge Request, to achieve this use `git commit --amend`  
+-   There should be only one commit per Pull Request, to achieve this use `git commit --amend`  
 
 ## Built with
 - Python version  3
