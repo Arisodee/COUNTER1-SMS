@@ -30,7 +30,7 @@ def signup(request):
             message = render_to_string('registration/acc_active_email.html', {  
                 'user': user,  
                 'domain': current_site.domain,  
-                'uid': urlsafe_base64_encode(force_bytes(user.id)).decode(),  
+                'uid': urlsafe_base64_encode(force_bytes(user.id)),  
                 'token': account_activation_token.make_token(user),  
             })  
             to_email = form.cleaned_data.get('email')  
@@ -39,9 +39,9 @@ def signup(request):
             )  
             email.send()  
             return HttpResponse('Please confirm your email address to complete the registration')  
-     else:  
+    else:  
         form = SignUpForm()  
-     return render(request, 'registration/signup.html', {'form': form})
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 
