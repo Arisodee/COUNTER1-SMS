@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'counter1app',
     'bootstrap4',
+     
 ]
 
 MIDDLEWARE = [
