@@ -74,14 +74,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'counter1project.wsgi.application'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  
-MAILER_EMAIL_BACKEND = EMAIL_BACKEND  
-EMAIL_HOST = 'smtp.gmail.com'  
-EMAIL_HOST_PASSWORD = '0725939687'  
-EMAIL_HOST_USER = 'sakoemmanuel4@gmail.com'  
-EMAIL_PORT = 587 
-EMAIL_USE_SSL = True  
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sakoemmanuel4@gmail.com'
+EMAIL_HOST_PASSWORD = '0725939687'
 
 
 # Database
