@@ -1,5 +1,6 @@
 venv/
 virtual/
+credentials.py
 
 *.pyc
 __pycache__/

@@ -1,0 +1,22 @@
+{%load bootstrap4%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter1</title>
+</head>
+
+<body>
+
+    <div class="form-group">
+        <form action="" method="POST">{% csrf_token %}
+            {% bootstrap_form form%}
+            <button class="btn btn-secondary" type="submit">Submit</button><br><br>
+        </form>
+    </div>
+
+</body>
+
+</html>
