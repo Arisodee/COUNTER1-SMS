@@ -87,8 +87,7 @@ EMAIL_HOST_PASSWORD = '0725939687'
 
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.facebook.FacebookOAuth2',
-    # 'social_core.backends.github.GithubOAuth2',
-    # 'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.github.GithubOAuth2',    
 
     'django.contrib.auth.backends.ModelBackend',  
 ]
@@ -170,5 +169,5 @@ SOCIAL_AUTH_FACEBOOK_KEY	=	'319365083043094'	# Facebook App	ID
 SOCIAL_AUTH_FACEBOOK_SECRET	=	'39c956013b26fa5c508f77311287996c'	# Facebook App Secret
 
 
-SOCIAL_AUTH_GITHUB_KEY = ''     # github id     
-SOCIAL_AUTH_GITHUB_SECRET = ''  # github secret key
+SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'     # github id     
+SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 '  # github secret key
