@@ -24,12 +24,12 @@ def profile_upload(request):
     # checking whether it is a csv file.
     if not csv_file.name.endswith('.csv'):
         message.error(request, 'Check whether this is a CSV file')
-        data_set = csv_file.read().decode('UTF-8')
+    data_set = csv_file.read().decode('UTF-8')
 
         # setting up a loop for each line
     io_string = io.StringIO(data_set)
     next(io_string)
-    for column in csv.reader(io_string, delimeter=',', quotechar="|"):
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
         _, created = Profile.objects.update_or_create(
             first_name=column[0],
             last_name=column[1],
