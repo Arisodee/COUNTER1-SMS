@@ -16,6 +16,9 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 import threading
 
+def home(request):
+        return render(request, 'home.html')
+
 
 class EmailThread(threading.Thread):
 

@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content%}
+
+<header style="background-color:rgb(63, 212, 63);">
+
+<div class="jumbotron jumbotron-fluid" >
+    <div class="container">
+      <h6 class="display-4"><strong>DASHBOARD</strong></h6>
+      <p>Counter1 server  SMS</p><br>
+      <p></p> <br>
+
+    </div>
+  </div>
+
+</header><br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-md-5 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+              <h5>SMS</h5>
+              <p>Number of Sms</p>
+              <div class="row align-items-start">
+                <div class="col">
+                  Today
+                </div>
+                <div class="col">
+                  A Month
+                </div>
+                <div class="col">
+                  A year
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-sm-6 col-md-5 col-lg-6"><div class="card">
+        <div class="card-body">
+            <h5>General Info</h5>
+            <p>Summary</p>
+            
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+{% endblock %}
