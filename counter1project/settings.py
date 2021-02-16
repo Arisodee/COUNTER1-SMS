@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'counter1app',
     'bootstrap4',
+    'import_export',
 ]
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,8 +90,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'counter1',
-        'USER': 'ariso',
-        'PASSWORD':'Barbie1991',
+        'USER': 'moringa',
+        'PASSWORD':'12345',
 
     }
 }

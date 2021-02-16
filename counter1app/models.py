@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 import json
 import requests
@@ -42,3 +43,12 @@ class Talking(models.Model):
         print( make_post_request().json() )
 
         return super(Talking, self).save(*args, **kwargs)
+
+class Profile(models.Model):
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    email = models.EmailField(blank=True)
+    phone = models.CharField(max_length=150,unique=True)
+    
+    def __str__(self):
+        return self.first_name
