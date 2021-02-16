@@ -28,6 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ea55f14f2a59.ngrok.io']
 
+TWILIO_ACCOUNT_SID = "ACc85e755b07b1d99e092c86acaf5dfe93"
+TWILIO_AUTH_TOKEN = "aa2327d475380b0fc79ee50bf804a57d"
+TWILIO_NUMBER = "+15165888918"
+SMS_BROADCAST_TO_NUMBERS = [ 
+    "+254724565746", # use the format +19735551234
+    "", 
+    "", 
+]
 
 # Application definition
 

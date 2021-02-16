@@ -5,7 +5,6 @@ from django.http import HttpResponseRedirect
 
 from .forms import TalkingForm
 
-
 def talking_view(request):
     if request.method == 'POST':
         form = TalkingForm(request.POST)
