@@ -16,8 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
+from counter1app.views import profile_upload
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('counter1app.urls')), 
+    path('upload-csv/', profile_upload, name="profile_upload"),
+
 ]
