@@ -1,4 +1,4 @@
-# from django.shortcuts import render
+ from django.shortcuts import render
 
 # # Create your views here.
 # class TextMessageModelApi(ModelViewSet):
@@ -57,3 +57,7 @@
 #                 response_.status_code = status.HTTP_403_FORBIDDEN
 #                 response_.data = sms_status
 #                 return response_
+
+
+def user_page (request):
+    return render (request,'user.html')
