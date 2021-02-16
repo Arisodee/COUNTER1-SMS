@@ -4,10 +4,9 @@ from django.urls import path
 
 
 urlpatterns = [ 
-    # url(r'broadcast$', views.broadcast_sms, name="default"),
-
-    path('talking/', views.talking_view, name='lets_talk'),
     
+    path('talking/', views.talking_view, name='lets_talk'),
+    path('success_report/', views.success_report, name='success_report'),
     
     
 ]
