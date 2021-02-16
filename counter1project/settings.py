@@ -79,9 +79,9 @@ WSGI_APPLICATION = 'counter1project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'counter1',
-        'USER': 'ariso',
-        'PASSWORD':'Barbie1991',
+        'NAME': 'counter',
+        'USER': 'moringaaccess',
+        'PASSWORD':'Kennedy',
 
     }
 }

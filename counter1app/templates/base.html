@@ -1,0 +1,28 @@
+{% load static %}
+{% load bootstrap4 %}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  {% block styles %}
+    {% bootstrap_css %}
+  {% endblock %}
+
+</head>
+<body>
+ <!-- Navbar block  --> 
+{% block navbar %}
+{% include 'navbar.html' %}
+
+{% endblock %}
+
+
+
+{% block content%}
+{% endblock%}
+
+</body>
+</html>
