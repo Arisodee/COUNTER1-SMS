@@ -10,7 +10,9 @@ from django.contrib import messages
 from .models import Profile
 
 from django.shortcuts import render, redirect
-from django.views.generic import View
+from django.views.generic import View, TemplateView
+from .models import Count
+from django.http import JsonResponse
 from django.contrib import messages
 from validate_email import validate_email
 from django.contrib.auth.models import User
@@ -26,6 +28,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 import threading
+
+
+class HomeView(View):
+    def get(self, request):
+        return render(request, 'home.html')
+
+
+
+class SmsNumJsonView(View):
+    def get(self, *args, **kwargs):
+        sms_count = Count.objects.filter(active=True).count()
+        return JsonResponse({'sms_count':sms_count})
 
 
 class EmailThread(threading.Thread):
