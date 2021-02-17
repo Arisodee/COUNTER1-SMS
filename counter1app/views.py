@@ -339,3 +339,12 @@ def profile_upload(request):
         )
     context = {}
     return render(request, template, context)
+
+
+def index(request):
+    return render(request,'index.html')
+
+
+def dashboard(request):
+    return render(request, 'simple_sidebar.html')
+

@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 
     
 urlpatterns = [
+    url(r'^$', views.index, name="index"),
+    url('^dashboard/$',views.dashboard,name='dashboard'),
     path('register', views.RegistrationView.as_view(), name='register'),
     path('login', views.LoginView.as_view(), name='login'),
     path('logout', views.LogoutView.as_view(), name='logout'),
@@ -16,4 +18,5 @@ urlpatterns = [
     # path('social-auth/', include('social_django.urls', namespace='social'))
     path('talking/', views.talking_view, name='lets_talk'),
     path('success_report/', views.success_report, name='success_report'),
+
 ]

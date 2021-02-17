@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('counter1app.urls')), 
     path('upload-csv/', profile_upload, name="profile_upload"),
+
 ]
