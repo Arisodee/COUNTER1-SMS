@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'counter1app.apps.Counter1AppConfig',
     'bootstrap4',
-    'social_django',
+    # 'social_django',
 ]
 
 MIDDLEWARE = [
@@ -68,8 +68,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+                # 'social_django.context_processors.backends',
+                # 'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -86,8 +86,8 @@ EMAIL_HOST_PASSWORD = '0725939687'
 
 
 AUTHENTICATION_BACKENDS = [
-    'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.github.GithubOAuth2',    
+    # 'social_core.backends.facebook.FacebookOAuth2',
+    # 'social_core.backends.github.GithubOAuth2',    
 
     'django.contrib.auth.backends.ModelBackend',  
 ]
@@ -165,9 +165,9 @@ LOGOUT_URL='logout'
 LOGOUT_REDIRECT_URL='login'
 
 
-SOCIAL_AUTH_FACEBOOK_KEY	=	'319365083043094'	# Facebook App	ID
-SOCIAL_AUTH_FACEBOOK_SECRET	=	'39c956013b26fa5c508f77311287996c'	# Facebook App Secret
+# SOCIAL_AUTH_FACEBOOK_KEY	=	'319365083043094'	
+# SOCIAL_AUTH_FACEBOOK_SECRET	=	'39c956013b26fa5c508f77311287996c'	
 
 
-SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'     # github id     
-SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 '  # github secret key
+# SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'      
+# SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 ' 
