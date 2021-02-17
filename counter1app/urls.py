@@ -18,5 +18,6 @@ urlpatterns = [
     # path('social-auth/', include('social_django.urls', namespace='social'))
     path('talking/', views.talking_view, name='lets_talk'),
     path('success_report/', views.success_report, name='success_report'),
+    url('^user_page/$',views.user_page,name='user_page'),
 
 ]
