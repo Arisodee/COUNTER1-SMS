@@ -1,7 +1,8 @@
 from django import forms
-
 from .models import Talking
 
+from django.contrib.auth.forms import UserCreationForm  
+from django.contrib.auth.models import User  
 
 class TalkingForm(forms.ModelForm):
     
@@ -19,3 +20,8 @@ class TalkingForm(forms.ModelForm):
             'sender_id': forms.TextInput(attrs={'class': 'form-control'}),
         }
     
+
+class SignUpForm(UserCreationForm):  
+    class Meta:  
+        model = User  
+        fields = ('email', 'first_name', 'last_name', 'username')
