@@ -1,4 +1,5 @@
- from django.shortcuts import render
+from django.shortcuts import render
+
 
 # # Create your views here.
 # class TextMessageModelApi(ModelViewSet):
@@ -58,6 +59,9 @@
 #                 response_.data = sms_status
 #                 return response_
 
+
+def index (request):
+    return render (request,'index.html')
 
 def user_page (request):
     return render (request,'user.html')

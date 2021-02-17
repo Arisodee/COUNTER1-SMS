@@ -1,19 +1,16 @@
 
-
+  {% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    (% load staticfiles% )
-    <link rel="stylesheet" href="(% static  'css/user.css'%)">
-
-    
-    <title></title>
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <title> counnter1</title>
  </head>
 <body style="margin: 0%;">
     <div class="top">
-        <div class="top-left">
+        <div class="top-left">S
             <button class="green-button">Add Contacts</button>
             <button class="green-button">Add Contacts from Csv</button>
             <button class="blue-button">Add group</button>
