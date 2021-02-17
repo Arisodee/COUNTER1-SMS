@@ -1,0 +1,58 @@
+{% load static%}
+{% load bootstrap4 %}
+<!-- Content block -->
+
+{% block content %}
+
+<!-- Page content -->
+
+<div class="box">
+
+    <div class="box-body table-responsive with-border">
+        {% if users %}
+        <table class="table table-bordered">
+                    <thead>
+                <tr>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">ID Number</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Email Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for users in users %}
+                <tr>
+                    
+                    <td>{{users.full_name}}</td>
+                    <td>{{users.id_number}}</td>
+                    <td>{{users.phone_number}}</td>
+                    <td>{{users.email}}</td>
+
+                </tr>
+                <tr>
+                    <td><a href="{% url 'editSupervisor' users.id %}" class="btn btn-sm btn-success btn-flat"><i class="fa fa-edit"></i> Edit</a></td>
+                    {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+       
+        {% endif %}
+
+    </div>
+
+
+
+
+</div>
+
+<style>
+    .box{
+        background-color:lightgoldenrodyellow;
+    }
+</style>
+
+
+
+
+
+{% endblock %}

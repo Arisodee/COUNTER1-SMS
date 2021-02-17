@@ -1,0 +1,35 @@
+{%extends "registration/base.html"%}
+{% load bootstrap4 %}
+{% block content %}
+<br><br>
+<div class="container">
+  <div class="row">
+   
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+
+      {% if form.errors %}
+      <p> Information provided is incorrect.</p>
+      {% endif %}
+      <div class="card container">
+        <div class="panel-heading">
+          <img src="" alt="">
+          <h3 class="text-center" style="font-family: 'Lobster Two', cursive;">CREATE NEW ADMIN</h3>
+        </div>
+        <div class="panel-body">
+          <form action="/accounts/register/" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
+            </div>
+            <p>Already have an account? <a href="/accounts/login"> Log In</a></p>
+            <input type="hidden" name="next" value="{{next}}">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+{% endblock %}
