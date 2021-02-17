@@ -18,14 +18,18 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 import threading
 
-class HomeView(request):
-        template_name = 'home.html'
+
+class HomeView(View):
+    def get(self, request):
+        return render(request, 'home.html')
+
 
 
 class SmsNumJsonView(View):
     def get(self, *args, **kwargs):
-        sms_count = Count.object.filter(active=True).count()
+        sms_count = Count.objects.filter(active=True).count()
         return JsonResponse({'sms_count':sms_count})
+
 
 class EmailThread(threading.Thread):
 

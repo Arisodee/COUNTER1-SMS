@@ -1,7 +1,7 @@
 from django.urls import path,include
 from . import views
 from django.contrib.auth.decorators import login_required
-
+from .views import  HomeView,SmsNumJsonView
 
 urlpatterns = [
     path('register', views.RegistrationView.as_view(), name='register'),
