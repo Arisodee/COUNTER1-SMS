@@ -1,23 +1,10 @@
-{%load bootstrap4%}
+{% extends 'base.html' %}
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <title>Counter1-sms</title>
-</head>
-
-<body>
-
-    <div class=" container send-sms-form ">
+{% block content %}
+    <div class=" send-sms-form ">
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 sms-form" >
+            <div class="col-md-2"></div>
+            <div class="col-md-8 sms-form" >
                 <div class="form-group">
                     <form action="" method="POST">{% csrf_token %}
                     {{ form.as_p }}
@@ -25,27 +12,28 @@
                     </form>
                 </div>                
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
         </div>
         
     </div>
 
-</body>
-
-
-</html>
 <style>
     body{
-        background-color: rgb(29, 196, 29);
-    
+        background-color: rgb(235, 240, 235);
+        width: 100%;
+        
     }
 
     .send-sms-form{
-        margin-top: 10%;
+        margin-top: 5%;
+        margin-bottom: 10%;
+        
     }
 
     .sms-form{
         border: 2px solid rgb(100, 168, 100);
         background-color: rgb(247, 181, 59);
+
     }
 </style>
+{% endblock %}
