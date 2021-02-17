@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib import messages
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,15 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ea55f14f2a59.ngrok.io']
 
-TWILIO_ACCOUNT_SID = "ACc85e755b07b1d99e092c86acaf5dfe93"
-TWILIO_AUTH_TOKEN = "aa2327d475380b0fc79ee50bf804a57d"
-TWILIO_NUMBER = "+15165888918"
-SMS_BROADCAST_TO_NUMBERS = [ 
-    "+254724565746", # use the format +19735551234
-    "", 
-    "", 
-]
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'counter1app',
+    'counter1app.apps.Counter1AppConfig',
     'bootstrap4',
     'import_export',
+    
 ]
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
@@ -75,12 +69,28 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+               
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'counter1project.wsgi.application'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sakoemmanuel4@gmail.com'
+EMAIL_HOST_PASSWORD = '0725939687'
+
+
+
+AUTHENTICATION_BACKENDS = [
+    # 'social_core.backends.facebook.FacebookOAuth2',
+    # 'social_core.backends.github.GithubOAuth2',    
+
+    'django.contrib.auth.backends.ModelBackend',  
+]
 
 
 # Database
@@ -90,8 +100,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'counter1',
-        'USER': 'moringa',
-        'PASSWORD':'12345',
+        'USER': 'ariso',
+        'PASSWORD':'Barbie1991',
 
     }
 }
@@ -130,6 +140,11 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+MESSAGE_TAGS={
+    messages.ERROR:'danger'
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -140,3 +155,19 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+LOGIN_URL='login'
+LOGIN_REDIRECT_URL='home'
+
+LOGOUT_URL='logout'
+LOGOUT_REDIRECT_URL='login'
+
+
+# SOCIAL_AUTH_FACEBOOK_KEY	=	'319365083043094'	
+# SOCIAL_AUTH_FACEBOOK_SECRET	=	'39c956013b26fa5c508f77311287996c'	
+
+
+# SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'      
+# SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 ' 
