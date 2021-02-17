@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'import_export',
     
+     
 ]
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
@@ -98,12 +99,14 @@ AUTHENTICATION_BACKENDS = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'counter1',
         'USER': 'ariso',
         'PASSWORD':'Barbie1991',
-
-    }
+        'HOST': 'localhost',
+        'PORT': ''
+        
+ }
 }
 
 
@@ -171,3 +174,4 @@ LOGOUT_REDIRECT_URL='login'
 
 # SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'      
 # SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 ' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
