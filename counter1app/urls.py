@@ -11,5 +11,5 @@ urlpatterns = [
     path('activate/<uidb64>/<token>',  views.ActivateAccountView.as_view(), name='activate'),
     path('set-new-password/<uidb64>/<token>',  views.SetNewPasswordView.as_view(), name='set-new-password'),
     path('request-reset-email', views.RequestResetEmailView.as_view(), name='request-reset-email'),
-    path('social-auth/', include('social_django.urls', namespace='social'))
+    # path('social-auth/', include('social_django.urls', namespace='social'))
 ]
