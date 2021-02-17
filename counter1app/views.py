@@ -38,3 +38,15 @@ def profile_upload(request):
         )
     context = {}
     return render(request, template, context)
+
+def addContact(request):
+    if request.method == 'POST':
+        new_contact = Profile(
+            first_name=request.POST['first_name'],
+            last_name=request.POST['last_name'],
+            email=request.POST['email'],
+            phone=request.POST['phone'],
+        )
+        new_contact.save()
+        return redirect('add-contact')
+    return render(request,'new.html')
