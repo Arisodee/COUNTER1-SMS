@@ -1,82 +1,45 @@
-# # works with both python 2 and 3
-# from __future__ import print_function
+from __future__ import print_function
+
+from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
+
+import json
+import requests
 
 
-# import africastalking
-
-# class SMS:
-#     def __init__(self):
-# 		# Set your app credentials
-#         self.username = "YOUR_USERNAME"
-#         self.api_key = "YOUR_API_KEY"
-
-# 		# Initialize the SDK
-#         africastalking.initialize(self.username, self.api_key)
-
-# 		# Get the SMS service
-#         self.sms = africastalking.SMS
-
-#     def fetch_subscriptions_sync(self):
-# 		# Set your premium product shortCode and keyword
-#         shortCode = "MyAppShortCode";
-#         keyword = "MyAppKeyword";
-
-#         # Our API will return 100 subscription numbers at a time back to you,
-# 		# starting with what you currently believe is the lastReceivedId.
-# 		# Specify 0 for the first time you access the method and the ID of
-# 		# the last subscription we sent you on subsequent calls
-#         try:
-# 			lastReceivedId = 0;
-
-#             # Fetch all messages using a loop
-#             while True:
-#                 subcriptionData = self.sms.fetch_subscriptions(shortCode, keyword, lastReceivedId)
-#                 subcriptions = subcriptionData['responses']
-#                 if len(subcriptions) == 0:
-#                     print ('No subscription numbers.')
-#                     break
-#                 for subscription in subscriptions:
-#                     print ('phone number : %s;' % subscription['phoneNumber'])
-# 					# Reassign the lastReceivedId
-#                     lastReceivedId = subscription['id']
-
-# 		    # Note: Be sure to save the lastReceivedId for next time
-#         except Exception as e:
-#             print ("Error creating subscription:%s" %str(e))
-
-# if __name__ == '__main__':
-#     SMS().fetch_subscriptions_sync()
-
-# Create your models here.
-class Contact(models.Model):
-    name = models.CharField(max_length = 50)
-    number = models.CharField(max_length = 50)
+class sending_sms(models.Model):
+    username = models.CharField(max_length=200, blank=True, null=True)
+    api_key = models.CharField(max_length=201, blank=True, null=True)
+    recipients = models.TextField(max_length=1000, blank=True, null=True)
+    message = models.TextField(max_length=200, blank=True, null=True)
+    sender_id = models.CharField(max_length=200, blank=True, null=True)
     
-    def __str__(self):
-        return self.name
-
-
-class Group(models.Model):
-    name = models.CharField(max_length = 50)
-    contact = models.ForeignKey(Contact,on_delete =models.CASCADE, null = True)
-
-    def __str__(self):
-        return self.name
     
+    def _str_(self):
+        return self.username
 
-    def save_group(self):
-        self.save()
     
-    def delete_group(self):
-        self.delete()
-    
-    @classmethod
-    def get_groups(cls):
-       groups = Group.objects.all()
-       return groups
-    
-    @classmethod
-    def search_by_name(cls,search_term):
-        results = cls.objects.filter(name__icontains = search_term)
-        return results
+    def save(self, *args, **kwargs):     
 
+        url = 'https://api.sandbox.africastalking.com/version1/messaging'  
+        
+        headers = {
+            'ApiKey': self.api_key, 
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+        }
+        
+        data = {
+            'username': self.username,
+            'from': self.sender_id,
+            'message': self.message,
+            'to': self.recipients,
+        }
+        
+        def make_post_request():  
+            response = requests.post(url=url, headers=headers, data=data )
+            return response
+        
+        print( make_post_request().json() )
+
+        return super(Talking, self).save(*args, **kwargs)
