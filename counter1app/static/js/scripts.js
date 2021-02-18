@@ -1,11 +1,10 @@
-
 const counter = document.getElementById('counter')
 let counterval = parseInt(counter.textContent)
 
 let smsSize = 0
 const updateTime = 100
-const tresh = 300
-let counted = false
+// const tresh = 300
+// let counted = false
 
 $.ajax({
     type: 'GET',
@@ -31,10 +30,10 @@ const runCount = setInterval(()=>{
 }, updateTime)
 
 
-window.addEventListener('scroll',e=>{
-    let position = window.scrollY
-    if(position > tresh){
-        console.log(position)
-    }
+// window.addEventListener('scroll',e=>{
+//     let position = window.scrollY
+//     if(position > tresh){
+//         console.log(position)
+//     }
     
-})
+// })
