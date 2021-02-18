@@ -24,8 +24,8 @@ class Invitation(models.Model):
         return u'%s, %s' % (self.sender.username, self.email)
 
     def send(self):
-        subject = u'Invitation to join Django Bookmarks'
-        link = 'http://%s/friend/accept/%s/' % (
+        subject = u'Invitation to join Counter 1 Serve '
+        link = 'http://%s/counter1/accept/%s/' % (
         settings.SITE_HOST,
         self.code
             )
