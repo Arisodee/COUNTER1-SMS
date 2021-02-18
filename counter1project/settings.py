@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'counter1app',
     'bootstrap4',
+     
 ]
 
 MIDDLEWARE = [
@@ -78,12 +79,14 @@ WSGI_APPLICATION = 'counter1project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'counter1',
-        'USER': 'ariso',
-        'PASSWORD':'Barbie1991',
-
-    }
+        'USER': 'counter1_owner',
+        'PASSWORD':'password1234',
+        'HOST': 'localhost',
+        'PORT': ''
+        
+ }
 }
 
 
@@ -129,4 +132,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
