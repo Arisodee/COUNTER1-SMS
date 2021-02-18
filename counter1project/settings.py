@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'counter1project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'counter1',
         'USER': 'kets',
         'PASSWORD':'ketsia321',
@@ -132,7 +132,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 
 BROKER_URL = 'amqp://'
 CELERY_ACCEPT_CONTENT = ['pickle']
