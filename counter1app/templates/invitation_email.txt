@@ -1,0 +1,9 @@
+Hi {{ name }},
+
+{{ sender }} invited you to join Counter 1 Serve, 
+  a website where you can send  SMS to a group or an individual!
+
+To accept the invitation, please click the link below:
+{{ link }}
+
+-- Counter 1 Serve Team
