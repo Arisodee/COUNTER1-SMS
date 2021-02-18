@@ -1,0 +1,18 @@
+ {% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="container">
+    {% if found %}
+    <h5 class="text-center mt-3">Found {{found.count}} project{{ found|pluralize }}</h5>
+    <hr style="width: 60%;"> {%for group in found %}
+    <div>
+        <h5>{{group.name}}<span class="float-right">
+        </h5>
+    </div>
+    <a href="/" class="btn btn-dark">backhome</a> 
+    {%endfor%}
+</div>
+    {% else %}
+<h4 class="text-center mt-3"  style="font-family: 'Open Sans Condensed', sans-serif;">Found 0 project with the name you searched </h4>
+<a href="/" class="btn btn-dark">backhome</a> {% endif %}
+</div>
+
+{%endblock%}

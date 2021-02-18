@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'counter1app',
     'bootstrap4',
+    'crispy_forms',
+    'widget_tweaks',
+    'djcelery',
 ]
 
 MIDDLEWARE = [
@@ -80,9 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'counter1',
-        'USER': 'ariso',
-        'PASSWORD':'Barbie1991',
-
+        'USER': 'kets',
+        'PASSWORD':'ketsia321',
+        'HOST': 'localhost',
     }
 }
 
@@ -130,3 +133,11 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+BROKER_URL = 'amqp://'
+CELERY_ACCEPT_CONTENT = ['pickle']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
