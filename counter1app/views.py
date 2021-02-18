@@ -1,7 +1,7 @@
 
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,Http404
-from .models import Profile,Add_user
+from .models import Add_user
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -20,41 +20,6 @@ def index(request):
     users = Add_user.objects.filter()
     return render(request,'index.html',{'users':users})
 
-def profile(request):
-    if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user)
-        if  profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return redirect('index')
-    else:
-        profile_form = ProfileUpdateForm(instance=request.user)
-        user_form = UserUpdateForm(instance=request.user)
-        context = {
-            'user_form':user_form,
-            'profile_form': profile_form
-        }
-    return render(request, 'profile.html', context)
-
-def update_profile(request):
-    if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
-        if user_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return redirect('home')
-    else:
-        user_form = UserUpdateForm(instance=request.user)
-        profile_form = ProfileUpdateForm(instance=request.user)
-        context = {
-            'user_form': user_form,
-            'profile_form': profile_form
-        }
-    return render(request, 'update_profile.html', context)
-
 def register(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -68,11 +33,6 @@ def register(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/registration_form.html', {'form': form})
-
-
-
-
-
 
 def create_user(request):
     '''

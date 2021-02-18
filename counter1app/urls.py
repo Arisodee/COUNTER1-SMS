@@ -9,10 +9,9 @@ from . import views as user_views
 urlpatterns=[
     path('',views.index,name = 'index'),
     path('accounts/register/', views.register, name='register'),
-    path('profile/', user_views.profile,name = 'profile'),
     path('create_user/', user_views.create_user,name = 'create'),
     url(r'^editSupervisor/(\d+)', views.edit_superlist, name='editSupervisor'),
-    path('update_profile/', user_views.update_profile,name = 'update_profile'),
+  
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
