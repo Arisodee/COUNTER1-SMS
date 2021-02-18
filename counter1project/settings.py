@@ -77,6 +77,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'counter1project.wsgi.application'
 
+SITE_HOST = '127.0.0.1:8000'
+
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
