@@ -34,6 +34,5 @@ const runCount = setInterval(()=>{
 //     let position = window.scrollY
 //     if(position > tresh){
 //         console.log(position)
-//     }
-    
+//     }    
 // })
