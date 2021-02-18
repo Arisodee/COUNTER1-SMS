@@ -1,19 +1,18 @@
 from django.shortcuts import render
 from django.conf import settings                                                                                                                                                       
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.http import HttpResponseRedirect
 from .forms import TalkingForm
 
 import csv
 import io
 from django.contrib import messages
-from .models import Profile
+from .models import Profile,Add_user
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, TemplateView
 from .models import Count
 from django.http import JsonResponse
-from django.contrib import messages
 from validate_email import validate_email
 from django.contrib.auth.models import User
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -28,6 +27,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 import threading
+
+from django.contrib.auth.decorators import login_required
+
+from .forms import Add_userForm,EditSupervisor
+from django.contrib.auth import logout
+from django.views.generic import (DetailView)
+
+
 
 
 class HomeView(View):
@@ -147,7 +154,7 @@ class LoginView(View):
         password = request.POST.get('password')
         if username == '':
             messages.add_message(request, messages.ERROR,
-                                 'Username is required')
+                                'Username is required')
             context['has_error'] = True
         if password == '':
             messages.add_message(request, messages.ERROR,
@@ -425,3 +432,51 @@ def dashboard(request):
 
 def user_page (request):
     return render (request,'user.html')
+
+
+
+
+
+# Create your views here.
+
+def user_list(request):
+    users = Add_user.objects.filter()
+    return render(request,'user_list.html',{'users':users})
+
+
+def create_user(request):
+    '''
+    View function to add a new supervisor
+    '''
+    if request.method == 'POST':
+        form = Add_userForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit = False)
+
+            '''
+            above line of code displays a user registered in a specific sacco or orgamisation by counter1
+            '''
+            user.save()
+            messages.success(request, f'Congratulations! You have succesfully Added a new User!')
+            return redirect('/')
+    else:
+        form = Add_userForm()
+    return render(request, 'create_user.html', {"form": form})
+
+
+
+
+def edit_superlist(request, supervisor_id):
+    '''
+    View function to edit an instance of a supervisor/user already created by the admin
+    '''
+    supervisor = Add_user.objects.get(pk=supervisor_id)
+    if request.method == 'POST':
+        form = EditSupervisor(request.POST, instance=supervisor)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Success! Your edit has been successful!')
+            return redirect('/')
+    else:
+        form = EditSupervisor(instance=supervisor)
+    return render(request, 'edit_user.html', {"form": form, "supervisor":supervisor})

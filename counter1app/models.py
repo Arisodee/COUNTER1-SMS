@@ -53,9 +53,22 @@ class Profile(models.Model):
     def __str__(self):
         return self.first_name
 
+
 class Count(models.Model):
     username = models.CharField(max_length=80)
     active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.username)
+
+
+class Add_user(models.Model):
+    full_name = models.CharField(max_length=100)
+    id_number = models.CharField(max_length=8, unique=True)
+    phone_number = models.CharField(max_length=10, unique=True,default=None)
+    email = models.CharField(max_length=100, default=None)
+
+    def __str__(self):
+        return self.full_name
+
+
