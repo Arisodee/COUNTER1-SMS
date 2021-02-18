@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'counter1app.apps.Counter1AppConfig',
     'bootstrap4',
-    'import_export',
-    
-     
+    'import_export',    
+    'rest_framework',
+    'crispy_forms',
 ]
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
