@@ -1,7 +1,7 @@
 from django.urls import path,include
 from . import views
 from django.contrib.auth.decorators import login_required
-from .views import HomeView,SmsNumJsonView
+from .views import HomeView
 
 urlpatterns = [
     path('register', views.RegistrationView.as_view(), name='register'),
@@ -12,6 +12,6 @@ urlpatterns = [
     path('set-new-password/<uidb64>/<token>',  views.SetNewPasswordView.as_view(), name='set-new-password'),
     path('request-reset-email', views.RequestResetEmailView.as_view(), name='request-reset-email'),
     path('',HomeView.as_view(), name='main'),
-    path('sms-json/', SmsNumJsonView.as_view(), name='sms-json')
+   
     # path('social-auth/', include('social_django.urls', namespace='social'))
 ]

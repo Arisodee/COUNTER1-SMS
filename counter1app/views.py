@@ -25,11 +25,6 @@ class HomeView(View):
 
 
 
-class SmsNumJsonView(View):
-    def get(self, *args, **kwargs):
-        sms_count = Count.objects.filter(active=True).count()
-        return JsonResponse({'sms_count':sms_count})
-
 
 class EmailThread(threading.Thread):
 
