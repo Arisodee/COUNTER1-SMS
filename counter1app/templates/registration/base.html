@@ -1,0 +1,28 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% if title %}
+    <title> {{title}} </title>
+    {% endif %}
+    {% block styles %}
+    {% bootstrap_css %}
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    {% endblock %}
+    {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Courgette|Lato&display=swap" rel="stylesheet">
+    {% bootstrap_javascript %}
+    {% endblock %}
+</body>
+
+</html>

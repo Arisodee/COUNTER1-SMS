@@ -29,10 +29,9 @@
             </div>
             <hr>
             <ul class="list-unstyled components">
-                <p>ADMIN DASHBOARD</p>
-                <hr>
+                
                 <li>
-                    <a href="/">DASHBOARD</a>
+                    <a href="{% url 'home' %}">DASHBOARD</a>
                 </li>
                 <li>
                     <a href="{% url 'lets_talk' %}">SMS</a>
@@ -77,8 +76,27 @@
                         <ul class="nav navbar-nav ml-auto">
                             <form class="d-flex">
                                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit">Search</button>
+                                <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
+                            {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <div>
+                                    <a style="color:black;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        ACCOUNT
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/accounts/login">LOGOUT</a>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            {% else %}
+                            <li class="nav-item active">
+                                <a class="nav-link btn btn-default" href="/accounts/login">LOGIN <span class="sr-only">(current)</span></a>
+                            </li>
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
             </nav>

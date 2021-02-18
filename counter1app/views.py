@@ -36,10 +36,13 @@ from django.views.generic import (DetailView)
 
 
 
-
+@login_required
 class HomeView(View):
     def get(self, request):
         return render(request, 'home.html')
+
+def index(request):
+    return render(request,'index.html')
 
 
 
@@ -435,8 +438,6 @@ def user_page (request):
 
 
 
-
-
 # Create your views here.
 
 def user_list(request):
@@ -458,7 +459,7 @@ def create_user(request):
             '''
             user.save()
             messages.success(request, f'Congratulations! You have succesfully Added a new User!')
-            return redirect('/')
+            return redirect('/user_list/')
     else:
         form = Add_userForm()
     return render(request, 'create_user.html', {"form": form})
@@ -476,7 +477,7 @@ def edit_superlist(request, supervisor_id):
         if form.is_valid():
             form.save()
             messages.success(request, f'Success! Your edit has been successful!')
-            return redirect('/')
+            return redirect('/user_list/')
     else:
         form = EditSupervisor(instance=supervisor)
     return render(request, 'edit_user.html', {"form": form, "supervisor":supervisor})

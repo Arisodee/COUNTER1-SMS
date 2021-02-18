@@ -9,7 +9,7 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #999;
+    
 }
 
 a,
@@ -33,6 +33,10 @@ a:focus {
     box-shadow: none;
     outline: none !important;
     border: none;
+}
+
+.nav-item a:hover{
+    background-color: rgb(247, 181, 59);
 }
 
 .line {
@@ -71,7 +75,7 @@ a:focus {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid lawngreen;
+    border-bottom: 1px solid rgb(99, 233, 65);
 }
 
 #sidebar ul p {
@@ -86,13 +90,14 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: green;
-    background: #fff;
+    color:black;
+    background: rgb(88, 231, 69);
+    font-size: 1.3em;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-    color: lawngreen;
+    color: rgb(88, 231, 69);
   
 }
 
@@ -109,9 +114,9 @@ a[data-toggle="collapse"] {
 }
 
 ul ul a {
-    font-size: 0.9em !important;
+    font-size: 1.0em !important;
     padding-left: 30px !important;
-    background: lawngreen;
+    background: rgb(88, 231, 69);
 }
 
 ul.CTAs {
@@ -127,14 +132,14 @@ ul.CTAs a {
 }
 
 a.download {
-    background: lawngreen;
-    color: lawngreen;
+    background: rgb(88, 231, 69);
+    color: rgb(88, 231, 69);
 }
 
 a.article,
 a.article:hover {
-    background: lawngreen !important;
-    color: lawngreen!important;
+    background: rgb(88, 231, 69)!important;
+    color: rgb(88, 231, 69)!important;
 }
 
 /* ---------------------------------------------------
@@ -146,6 +151,24 @@ a.article:hover {
     padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
+}
+
+body{
+    background-color: rgb(235, 240, 235);
+    width: 100%;
+        
+}
+
+.send-sms-form{
+    margin-top: 2%;
+    margin-bottom: 7%;
+        
+}
+
+.sms-form{
+    border: 2px solid rgb(100, 168, 100);
+    background-color: rgb(247, 181, 59);
+
 }
 
 /* ---------------------------------------------------
