@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.template.loader import get_template
 from django.template import Context
@@ -17,7 +18,7 @@ class Invitation(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField()
     code = models.CharField(max_length=20)
-    sender = models.ForeignKey(User)
+    # sender = models.ForeignKey('User', on_delete=models.CASCADE,)
 
   
     def __unicode__(self):
@@ -25,16 +26,12 @@ class Invitation(models.Model):
 
     def send(self):
         subject = u'Invitation to join Counter 1 Serve '
-        link = 'http://%s/counter1/accept/%s/' % (
+        link = 'http://%s/friend/accept/%s/' % (
         settings.SITE_HOST,
         self.code
             )
         template = get_template('invitation_email.txt')
-        context = Context({
-        'name': self.name,
-        'link': link,
-        'sender': self.sender.username,
-             })
+        context = Context({'name': self.name,'link': link,'sender': self.sender.username,})
         message = template.render(context)
         send_mail(
         subject, message,
