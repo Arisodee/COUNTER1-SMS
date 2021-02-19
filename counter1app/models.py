@@ -7,7 +7,7 @@ import json
 import requests
 
 
-class sending_sms(models.Model):
+class talking(models.Model):
     username = models.CharField(max_length=200, blank=True, null=True)
     api_key = models.CharField(max_length=201, blank=True, null=True)
     recipients = models.TextField(max_length=1000, blank=True, null=True)
