@@ -65,14 +65,11 @@ class EmailThread(threading.Thread):
 class RegistrationView(View):
     def get(self, request):
         return render(request, 'registration/register.html')
-
     def post(self, request):
         context = {
-
             'data': request.POST,
             'has_error': False
         }
-
         email = request.POST.get('email')
         username = request.POST.get('username')
         full_name = request.POST.get('name')
@@ -86,39 +83,31 @@ class RegistrationView(View):
             messages.add_message(request, messages.ERROR,
                                  'passwords dont match')
             context['has_error'] = True
-
         if not validate_email(email):
             messages.add_message(request, messages.ERROR,
                                  'Please provide a valid email')
             context['has_error'] = True
-
         try:
             if User.objects.get(email=email):
                 messages.add_message(request, messages.ERROR, 'Email is taken')
                 context['has_error'] = True
-
         except Exception as identifier:
             pass
-
         try:
             if User.objects.get(username=username):
                 messages.add_message(
                     request, messages.ERROR, 'Username is taken')
                 context['has_error'] = True
-
         except Exception as identifier:
             pass
-
         if context['has_error']:
             return render(request, 'registration/register.html', context, status=400)
-
         user = User.objects.create_user(username=username, email=email)
         user.set_password(password)
         user.first_name = full_name
         user.last_name = full_name
         user.is_active = False
         user.save()
-
         current_site = get_current_site(request)
         email_subject = 'Active your Account'
         message = render_to_string('registration/activate.html',
@@ -129,20 +118,16 @@ class RegistrationView(View):
                                        'token': generate_token.make_token(user)
                                    }
                                    )
-
         email_message = EmailMessage(
             email_subject,
             message,
             settings.EMAIL_HOST_USER,
             [email]
         )
-
         EmailThread(email_message).start()
         messages.add_message(request, messages.SUCCESS,
                              'account created succesfully')
-
         return redirect('login')
-
 
 class LoginView(View):
     def get(self, request):
@@ -310,12 +295,8 @@ def talking_view(request):
     if request.method == 'POST':
         form = TalkingForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            api_key = form.cleaned_data['api_key']
             recipients = form.cleaned_data['recipients']
-            message = form.cleaned_data['message']
-            sender_id = form.cleaned_data['sender_id']
-
+            message = form.cleaned_data['message']            
             form.save()
             return HttpResponseRedirect('/success_report/')
 

@@ -5,19 +5,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User  
 
 class TalkingForm(forms.ModelForm):
-    
+
     class Meta:
         model = Talking
-        fields = ['username', 'api_key', 'recipients', 'message', 
-                  'sender_id'
+        fields = ['recipients', 'message', 
+                  
                 ]
 
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'api_key': forms.TextInput(attrs={'class': 'form-control'}),
+            # 'username': forms.TextInput(attrs={'class': 'form-control'}),
+            # 'api_key': forms.TextInput(attrs={'class': 'form-control'}),
             'recipients': forms.TextInput(attrs={'class': 'form-control'}),
             'message': forms.TextInput(attrs={'class': 'form-control'}),
-            'sender_id': forms.TextInput(attrs={'class': 'form-control'}),
+            # 'sender_id': forms.TextInput(attrs={'class': 'form-control'}),
         }
     
 

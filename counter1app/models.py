@@ -5,6 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 import json
 import requests
+from django.conf import settings
 
 
 class Talking(models.Model):
@@ -24,18 +25,18 @@ class Talking(models.Model):
         url = 'https://api.sandbox.africastalking.com/version1/messaging'  
         
         headers = {
-            'ApiKey': self.api_key, 
+            'ApiKey': settings.API_KEY, 
             'Content-Type': 'application/x-www-form-urlencoded',
             'Accept': 'application/json'
         }
         
         data = {
-            'username': self.username,
-            'from': self.sender_id,
+            'username': 'sandbox',
+            'from': '1234',
             'message': self.message,
             'to': self.recipients,
         }
-        
+
         def make_post_request():  
             response = requests.post(url=url, headers=headers, data=data )
             return response
