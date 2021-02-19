@@ -161,6 +161,7 @@ class HomeView(View):
         return render(request, 'home.html')
 
 
+
 class LogoutView(View):
     def post(self, request):
         logout(request)
