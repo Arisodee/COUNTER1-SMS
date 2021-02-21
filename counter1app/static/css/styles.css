@@ -166,9 +166,10 @@ body{
 }
 
 .sms-form{
-    border: 2px solid rgb(100, 168, 100);
+    margin-top: 2%;
+    border: 5px solid rgb(226, 228, 226);
     background-color: whitesmoke;
-
+    
 }
 
 /* ---------------------------------------------------

@@ -13,11 +13,10 @@ class TalkingForm(forms.ModelForm):
                 ]
 
         widgets = {
-            # 'username': forms.TextInput(attrs={'class': 'form-control'}),
-            # 'api_key': forms.TextInput(attrs={'class': 'form-control'}),
+          
             'recipients': forms.TextInput(attrs={'class': 'form-control'}),
             'message': forms.TextInput(attrs={'class': 'form-control'}),
-            # 'sender_id': forms.TextInput(attrs={'class': 'form-control'}),
+        
         }
     
 
@@ -40,8 +39,27 @@ class Add_userForm(forms.ModelForm):
         fields = ('full_name', 'id_number','phone_number', 'email')
 
 
+        widgets = {
+          
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
+        
+        }
+
+
 class EditSupervisor(forms.ModelForm):
     class Meta:
         model = Add_user
         fields = ('full_name', 'id_number','phone_number', 'email')
+
+        widgets = {
+          
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
+        
+        }
 
