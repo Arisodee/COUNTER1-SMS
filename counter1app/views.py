@@ -42,7 +42,7 @@ def profile_upload(request):
             phone=column[3],
         )
     context = {}
-    return render(request, template, context)
+    return render(request,template, context)
 # @login_required(login_url='/loginViews')
 def addContact(request):
     '''
