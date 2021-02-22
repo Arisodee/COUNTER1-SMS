@@ -1,3 +1,8 @@
+import uuid
+from django.contrib.auth.base_user import AbstractBaseUser
+
+
+
 from __future__ import print_function
 
 from django.db import models
@@ -43,3 +48,19 @@ class Talking(models.Model):
         print( make_post_request().json() )
 
         return super(Talking, self).save(*args, **kwargs)
+
+
+class User(AbstractUser):
+
+    |#fields to tie the role
+
+    ADMIN = 1
+    SUPERVISOR = 2
+
+    ROLE_CHOICES(
+        (ADMIN, 'Amdin'),
+        (SUPERVISOR ,'Supervisor')
+    )
+     class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
