@@ -1,7 +1,6 @@
+
 import uuid
 from django.contrib.auth.base_user import AbstractBaseUser
-
-
 
 from __future__ import print_function
 
@@ -10,6 +9,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 import json
 import requests
+from django.conf import settings
 
 
 class Talking(models.Model):
@@ -30,17 +30,27 @@ class Talking(models.Model):
         
         headers = {
             'ApiKey': self.api_key, 
+
+            'ApiKey': settings.API_KEY, 
             'Content-Type': 'application/x-www-form-urlencoded',
             'Accept': 'application/json'
         }
         
         data = {
+
             'username': self.username,
             'from': self.sender_id,
             'message': self.message,
             'to': self.recipients,
         }
         
+
+            'username': 'sandbox',
+            'from': '1234',
+            'message': self.message,
+            'to': self.recipients,
+        }
+ 
         def make_post_request():  
             response = requests.post(url=url, headers=headers, data=data )
             return response
@@ -48,6 +58,7 @@ class Talking(models.Model):
         print( make_post_request().json() )
 
         return super(Talking, self).save(*args, **kwargs)
+
 
 
 class User(AbstractUser):
@@ -64,3 +75,32 @@ class User(AbstractUser):
      class Meta:
         verbose_name = 'user'
         verbose_name_plural = 'users'
+
+class Profile(models.Model):
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    email = models.EmailField(blank=True)
+    phone = models.CharField(max_length=150,unique=True)
+    
+    def __str__(self):
+        return self.first_name
+
+
+class Count(models.Model):
+    username = models.CharField(max_length=80)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.username)
+
+
+class Add_user(models.Model):
+    full_name = models.CharField(max_length=100)
+    id_number = models.CharField(max_length=8, unique=True)
+    phone_number = models.CharField(max_length=13, unique=True,default=None)
+    email = models.CharField(max_length=100, default=None)
+
+    def __str__(self):
+        return self.full_name
+
+

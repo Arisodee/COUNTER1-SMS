@@ -1,0 +1,93 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content%}
+
+<style>
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color:white;
+      color: black;
+      text-align: center;
+      
+    }
+    </style>
+    
+<header >
+
+<div class="jumbotron jumbotron-fluid" style="background-color:rgb(41, 212, 41); font-family: 'Reggae One', cursive;" >
+    <div class="container">
+      <h1 style="color:white;"><strong>DASHBOARD</strong></h1>
+      <h3 style="color:white;">Counter1  server  SMS</h3>
+      <p></p> 
+      
+    </div>
+  </div>
+
+</header><br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-md-5 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+              <h5>SMS</h5>
+              <p id="counter">Number of Sms</p>
+              <div class="row align-items-start">
+                <div class="col">
+                    <h2 id="counter">0</h2>
+                    <!-- <img src="/img/zero.png" width="42" height="50"> -->
+                    <p>Today</p>
+                </div>
+                <div class="col">
+                    <h2 id="counter">0</h2>
+                    <!-- <img src="/img/zero.png" width="42" height="50"> -->
+                    <p>A Month</p>
+                </div>
+                <div class="col">
+                    <h2 id="counter" >0</h2>
+                    <!-- <img src="/img/zero.png" width="42" height="50"> -->
+                  <p>A year</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-sm-6 col-md-5 col-lg-6"><div class="card">
+        <div class="card-body">
+            <h5>General Info</h5>
+            <p>Summary</p>
+            <div class="row align-items-start">
+                <div class="col">
+                    <h2>0</h2>
+                   
+                    <p>Contacts</p>
+                </div>
+                <div class="col">
+                    <h2>0</h2>
+                    
+                    <p>Groups</p>
+                </div>
+                <div class="col">
+                    <h2>0</h2>
+                   
+                  <p>Sent Schedule SMS</p>
+                </div>
+              </div>
+        </div>
+      </div></div>
+    </div>
+
+
+    <!-- <div class="footer">
+        <p><a href="#"> Contact</a></p>
+        <p><a href="#">Help</a></p>
+        
+      </div>
+
+  </div> -->
+
+
+{% endblock %}
