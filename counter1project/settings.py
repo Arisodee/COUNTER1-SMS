@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'counter1app',
     'bootstrap4',
     'import_export',
+     
 ]
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'counter1project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'counter1',
         'USER': 'moringa',
         'PASSWORD':'12345',
@@ -131,4 +132,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')

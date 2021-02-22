@@ -1,0 +1,81 @@
+{%extends 'user/base.html'%} 
+{% load static%} 
+{% load bootstrap4 %}
+<!-- Content block -->
+
+{% block content %} 
+<div class="top">
+  <div class="top-left">
+    <a href="{%url 'register_user' %}">
+    <button class='green-button'>Add Contacts</button>
+  </a>
+         
+    
+  
+      <button class="green-button" ><a href="{ %url 'profile_upload' %}">Add Contacts from
+          Csv</a></button>
+   
+
+
+    <button class="blue-button">Add group</button>
+    <button class="blue-button">Send SMS</button>
+  </div>
+  <div class="top-right">
+    <input placeholder="Enter input to search" type="search" />
+  </div>
+</div>
+<hr />
+<div class="bottom">
+  <div class="bottom-left">
+    <table class="table table-striped w-ful" >
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>email</th>
+        <th>Phone number</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for dat in data%}
+      <tr>
+        <td>{{dat.id}}</td>
+        <td>{{dat.first_name}}</td>
+        <td>{{dat.last_name}}</td>
+        <td>{{dat.email}}</td>
+        <td>{{dat.phone}}</td>
+        <td>
+          <div class="row">
+            <div class="col-sm">
+                <a href="{%url 'update_contact' dat.id%}"><i class="fas fa-pen-square"></i></a>
+            </div>
+            
+        </div>
+        </td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  </div>
+
+  <div class="bottom-right">
+
+
+    <table style="width: 100%;">
+      <tr>
+        <th>Filter by group</th>
+      </tr>
+    </table>
+
+    <input class="input-small" placeholder="All" style="margin-left: 15px;" /><br />
+
+    <div class="filter-input">
+      <input placeholder="group" type="search" />
+      <button class="delete-button">Delete</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
