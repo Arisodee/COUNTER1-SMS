@@ -1,0 +1,36 @@
+{% load static%} 
+{% load bootstrap4 %}
+<!-- Content block -->
+
+{% block content %}
+
+<div class=" create">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 create" >
+            <div class="form-group">
+                <form action="" method="POST">{% csrf_token %}
+                {{ form.as_p }}
+                <button  class="btn btn-success" type="submit">Save Changes</button><br><br>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<style>
+    body{
+        background-color: rgb(235, 240, 235);
+        width: 100%;
+    }
+    .create{
+        margin-top: 5%;
+        margin-bottom: 10%;
+    }
+    .create{
+        background-color: rgb(247, 181, 59);
+        text-align: center;
+    }
+</style>
+
+{% endblock %}

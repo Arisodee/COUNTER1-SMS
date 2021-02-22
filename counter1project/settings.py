@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'counter1app.apps.Counter1AppConfig',
     'bootstrap4',
     # 'social_django',
+    'rest_framework',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
