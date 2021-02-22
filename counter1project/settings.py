@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 from django.contrib import messages
+from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,13 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8khvy%6)npzm&4@^q=#$3yn9bzilmnzc8w$lkx5*i+w5^9om=z'
+SECRET_KEY =config('SECRET_KEY') 
+API_KEY =config('API_KEY') 
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in productionform!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '6bf6d27ca4a7.ngrok.io']
 
 # Application definition
 
@@ -42,10 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'counter1app.apps.Counter1AppConfig',
     'bootstrap4',
-    # 'social_django',
+    'import_export',    
     'rest_framework',
     'crispy_forms',
 ]
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,8 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'social_django.context_processors.backends',
-                # 'social_django.context_processors.login_redirect',
+               
             ],
         },
     },
@@ -84,8 +85,8 @@ SITE_HOST = '127.0.0.1:8000'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'sakoemmanuel4@gmail.com'
-EMAIL_HOST_PASSWORD = '0725939687'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER') 
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
 
 
 
@@ -102,12 +103,14 @@ AUTHENTICATION_BACKENDS = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'counter1',
-        'USER': 'moringa',
-        'PASSWORD':'1234',
-
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME') ,
+        'USER': config('DB_USER') ,
+        'PASSWORD':config('DB_PASSWORD') ,
+        'HOST': 'localhost',
+        'PORT': ''
+        
+ }
 }
 
 
@@ -175,3 +178,4 @@ LOGOUT_REDIRECT_URL='login'
 
 # SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'      
 # SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 ' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
