@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Group,Contact
-from .forms import GroupForm
+# from .models import Group,Contact
+from .forms import TalkingForm
 
 def index (request):
     return render (request,'index.html')
@@ -47,9 +47,9 @@ def search_group(request):
 
 #sending sms users side 
 
-def sending_view(request):
+def talking_view(request):
     if request.method == 'POST':
-        form = TalkingForm(request.POST)
+        form = talkingForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             api_key = form.cleaned_data['api_key']
@@ -62,10 +62,10 @@ def sending_view(request):
 
     else:
         form = TalkingForm()
-
+        
     context = {'form': form}
-    return render(request, "send_sms.html", context)
+    return render(request, "sms.html", context)
 
 def success_report(request):
     context = {}
-    return render(request, "success.html", context)
+    return render(request, "delivered.html", context)

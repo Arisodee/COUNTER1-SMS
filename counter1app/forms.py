@@ -1,14 +1,14 @@
+from .models import Talking
 from django import forms
-from .models import Group sending_sms
 
-class GroupForm(forms.ModelForm):
-    class Meta:
-        model = Group
-        fields = ['name','contact']
+# class GroupForm(forms.ModelForm):
+#     class Meta:
+#         model = Group
+#         fields = ['name','contact']
 
-#sending sms form user form
+# #sending sms form user form
 
-class sendingForm(forms.ModelForm):
+class TalkingForm(forms.ModelForm):
     
     class Meta:
         model = Talking
