@@ -434,7 +434,7 @@ def create_user(request):
             '''
             above line of code displays a user registered in a specific sacco or orgamisation by counter1
             '''
-            user.save()
+            
             messages.success(request, f'Congratulations! You have succesfully Added a new User!')
             # return redirect('/user_list/')
 
@@ -462,7 +462,7 @@ def create_user(request):
             )
             EmailThread(email_message).start()
             messages.add_message(request, messages.SUCCESS,
-                                'account created succesfully')
+                                'User created succesfully')
             return redirect('/user_list/')
 
 

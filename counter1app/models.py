@@ -63,6 +63,29 @@ class Count(models.Model):
         return str(self.username)
 
 
+# class Invitation(models.Model):
+#     name = models.CharField(max_length=50)
+#     email = models.EmailField()
+#     code = models.CharField(max_length=20)
+#     # sender = models.ForeignKey('User', on_delete=models.CASCADE,)
+
+  
+#     def __unicode__(self):
+#         return u'%s, %s' % (self.sender.username, self.email)
+
+#     def send(self):
+#         subject = u'Invitation to join Counter 1 Serve '
+#         link = 'http://%s/friend/accept/%s/' % (
+#         settings.SITE_HOST,
+#         self.code
+#             )
+#         template = get_template('invitation_email.txt')
+#         context = Context({'name': self.name,'link': link,'sender': self.sender.username,})
+#         message = template.render(context)
+#         send_mail(
+#         subject, message,
+#         settings.DEFAULT_FROM_EMAIL, [self.email]    )    
+
 class Add_user(models.Model):
     full_name = models.CharField(max_length=100)
     id_number = models.CharField(max_length=8, unique=True)

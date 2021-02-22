@@ -2,7 +2,7 @@ from django.conf.urls import url
 from . import views
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
-from .views import  HomeView,SmsNumJsonView
+from .views import  HomeView
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -19,7 +19,7 @@ urlpatterns = [
     path('set-new-password/<uidb64>/<token>',  views.SetNewPasswordView.as_view(), name='set-new-password'),
     path('request-reset-email', views.RequestResetEmailView.as_view(), name='request-reset-email'),
     path('',HomeView.as_view(), name='home'),
-    path('sms-json/', SmsNumJsonView.as_view(), name='sms-json'),
+    # path('sms-json/', SmsNumJsonView.as_view(), name='sms-json'),
     path('talking/', views.talking_view, name='lets_talk'),
     path('success_report/', views.success_report, name='success_report'),
     url('^user_page/$',views.user_page,name='user_page'),
