@@ -436,7 +436,36 @@ def create_user(request):
             '''
             user.save()
             messages.success(request, f'Congratulations! You have succesfully Added a new User!')
+            # return redirect('/user_list/')
+
+            user = User.objects.create_user(username=username, email=email)
+            user.set_password(password)
+            user.first_name = full_name
+            user.last_name = full_name
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            email_subject = 'Invaitation'
+            message = render_to_string('invitation_email.html',
+                                    {
+                                        'user': user,
+                                        'domain': current_site.domain,
+                                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                        'token': generate_token.make_token(user)
+                                    }
+                                    )
+            email_message = EmailMessage(
+                email_subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [email]
+            )
+            EmailThread(email_message).start()
+            messages.add_message(request, messages.SUCCESS,
+                                'account created succesfully')
             return redirect('/user_list/')
+
+
     else:
         form = Add_userForm()
     return render(request, 'create_user.html', {"form": form})
