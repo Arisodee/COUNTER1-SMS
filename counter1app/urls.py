@@ -23,7 +23,7 @@ urlpatterns = [
     path('talking/', views.talking_view, name='lets_talk'),
     path('success_report/', views.success_report, name='success_report'),
     url('^user_page/$',views.user_page,name='user_page'),
-    path('create_user/', user_views.create_user,name = 'create'),
+    path('create_user/<uidb64>/<token>', user_views.create_user,name = 'create'),
     url(r'^editSupervisor/(\d+)', views.edit_superlist, name='editSupervisor'),
     path('user_list/',views.user_list,name = 'user_list'),
 
