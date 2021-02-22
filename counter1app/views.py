@@ -437,8 +437,41 @@ def create_user(request):
             
             messages.success(request, f'Congratulations! You have succesfully Added a new User!')
             # return redirect('/user_list/')
+    def post(self, request):
+        context = {
+            'data': request.POST,
+            'has_error': False
+        }
+        email = request.POST.get('email')
+        phone_number = request.POST.get('number')
+        full_name = request.POST.get('name')
+        id_number = request.POST.get('id')
+        if len(password) > 8:
+            messages.add_message(request, messages.ERROR,
+                                 'Id number should be 8 characters long')
+            context['has_error'] = True
+       
+        if not validate_email(email):
+            messages.add_message(request, messages.ERROR,
+                                 'Please provide a valid email')
+            context['has_error'] = True
+        try:
+            if User.objects.get(email=email):
+                messages.add_message(request, messages.ERROR, 'Email is taken')
+                context['has_error'] = True
+        except Exception as identifier:
+            pass
+        try:
+            if User.objects.get(phone_number=number):
+                messages.add_message(
+                    request, messages.ERROR, 'phone_number is taken')
+                context['has_error'] = True
+        except Exception as identifier:
+            pass
+        if context['has_error']:
+            return render(request, 'create_user.html', context, status=400)
 
-            user = User.objects.create_user(username=username, email=email)
+            user = User.objects.create_user(full_name=name, email=email)
             user.set_password(password)
             user.first_name = full_name
             user.last_name = full_name
@@ -466,9 +499,9 @@ def create_user(request):
             return redirect('/user_list/')
 
 
-    else:
-        form = Add_userForm()
-    return render(request, 'create_user.html', {"form": form})
+        else:
+            form = Add_userForm()
+        return render(request, 'create_user.html', {"form": form})
 
 
 
