@@ -294,23 +294,6 @@ class SetNewPasswordView(View):
 
 # Create your views here.
 
-def index(request):
-    users = Add_user.objects.filter()
-    return render(request,'index.html',{'users':users})
-
-def register(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('login')
-    else:
-        form = SignUpForm()
-    return render(request, 'registration/registration_form.html', {'form': form})
 
 def create_user(request):
     '''
@@ -326,7 +309,38 @@ def create_user(request):
             '''
             user.save()
             messages.success(request, f'Congratulations! You have succesfully Added a new User!')
-            return redirect('/')
+            # return redirect('/')
+            user = User.objects.create_user(username=username, email=email)
+        user.set_password(password)
+        user.first_name = full_name
+        user.last_name = full_name
+        user.is_active = False
+        user.save()
+
+        current_site = get_current_site(request)
+        email_subject = 'User invaitation'
+        message = render_to_string('invitation_email.html',
+                                   {
+                                       'user': user,
+                                       'domain': current_site.domain,
+                                       'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                       'token': generate_token.make_token(user)
+                                   }
+                                   )
+
+        email_message = EmailMessage(
+            email_subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [email]
+        )
+
+        EmailThread(email_message).start()
+        messages.add_message(request, messages.SUCCESS,
+                             'user created succesfully')
+
+        return redirect('/')
+
     else:
         form = Add_userForm()
     return render(request, 'create_user.html', {"form": form})

@@ -17,9 +17,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token>',  views.ActivateAccountView.as_view(), name='activate'),
     path('set-new-password/<uidb64>/<token>',  views.SetNewPasswordView.as_view(), name='set-new-password'),
     path('request-reset-email', views.RequestResetEmailView.as_view(), name='request-reset-email'),
-    path('',HomeView.as_view(), name='main'),
-    path('',views.index,name = 'index'),
-    path('accounts/register/', views.register, name='register'),
+    path('',HomeView.as_view(), name='main'),      
     path('create_user/', user_views.create_user,name = 'create'),
     url(r'^editSupervisor/(\d+)', views.edit_superlist, name='editSupervisor'),
    
