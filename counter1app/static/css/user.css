@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 input{
-    width: 300px;
+    width: 100%;
     padding: 9px;
     border-radius: 10px;
     border-width: 1px;
