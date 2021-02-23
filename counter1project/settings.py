@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'bootstrap4',
     'import_export',
      
+    'crispy_forms',
+    'widget_tweaks',
+   
 ]
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
@@ -133,3 +136,11 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+BROKER_URL = 'amqp://'
+CELERY_ACCEPT_CONTENT = ['pickle']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
