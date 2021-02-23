@@ -50,10 +50,7 @@ def addContact(request):
     '''
     if request.method == 'POST':
         new_contact = ProfileForm(request.POST)
-            # first_name=request.POST['first_name'],
-            # last_name=request.POST['last_name'],
-            # email=request.POST['email'],
-            # phone=request.POST['phone'],
+           
         if new_contact.is_valid():
             contact = new_contact.save(commit=False)
             contact.save()
@@ -66,9 +63,7 @@ def addContact(request):
 
 
 
-# def index (request):
-#     return render (request,'index.html')
-# @login_required(login_url='/loginViews/')
+
 def user_page (request):
     all_contacts = Profile.objects.all()
     
@@ -89,9 +84,7 @@ def register_user(request):
     
     return render(request,"register_user.html",{"formUser":form})
 
-# class delete_contact(DeleteView):
-#     model = Profile
-#     success_url ="/"
+
     
 class update_contact(UpdateView):
     model = Profile
