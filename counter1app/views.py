@@ -430,6 +430,39 @@ def create_user(request):
         form = Add_userForm(request.POST)
         if form.is_valid():
             user = form.save(commit = False)
+            email = request.POST.get('email')
+            username = request.POST.get('username')
+            phone_number = request.POST.get('number')
+            full_name = request.POST.get('name')
+            user_id = request.POST.get('id')
+        
+    
+            user = User.objects.create_user(username=username, email=email)
+            user.set_password(id)
+            user.first_name = full_name
+            user.last_name = full_name
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            email_subject = 'invitation to counter1'
+            message = render_to_string('invitation_email.html',
+                                    {
+                                        'user': user,
+                                        'domain': current_site.domain,
+                                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                        'token': generate_token.make_token(user)
+                                    }
+                                    )
+            email_message = EmailMessage(
+                email_subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [email]
+            )
+            EmailThread(email_message).start()
+            messages.add_message(request, messages.SUCCESS,
+                                'invitation sent succesfully')
+            return redirect('/user_list/')
 
             '''
             above line of code displays a user registered in a specific sacco or orgamisation by counter1
@@ -440,6 +473,7 @@ def create_user(request):
     else:
         form = Add_userForm()
     return render(request, 'create_user.html', {"form": form})
+
 
 
 
@@ -457,6 +491,7 @@ class InviteUserView(View):
                                  'user is invited successfully')
             return redirect('user_list')
         return render(request, 'create_user.html', status=401)
+
 
 
 
