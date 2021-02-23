@@ -7,7 +7,7 @@ from .forms import TalkingForm
 import csv
 import io
 from django.contrib import messages
-from .models import Profile,Add_user
+from .models import Profile,Add_user,Talking
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, TemplateView
@@ -33,6 +33,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import Add_userForm,EditSupervisor
 from django.contrib.auth import logout
 from django.views.generic import (DetailView)
+from django.views.generic import View
 
 
 
@@ -48,7 +49,7 @@ def index(request):
 
 class SmsNumJsonView(View):
     def get(self, *args, **kwargs):
-        sms_count = Count.objects.filter(active=True).count()
+        sms_count = Talking.objects.filter().count()
         return JsonResponse({'sms_count':sms_count})
 
 

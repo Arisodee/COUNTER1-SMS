@@ -172,6 +172,15 @@ body{
     
 }
 
+.balance{
+    background-color:rgb(88, 231, 69) ;
+    padding: 2px;
+    width: 200px;
+    margin-left: 2%;
+    padding-left: 2%;
+    /* color: blanchedalmond;
+    font-weight: bold; */
+}
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
