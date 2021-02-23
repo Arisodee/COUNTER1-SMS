@@ -67,7 +67,7 @@ class Count(models.Model):
 
 class Add_user(models.Model):
     full_name = models.CharField(max_length=100)
-    id_number = models.CharField(max_length=10)
+    username = models.CharField(max_length=10,default=0)
     id_number = models.CharField(max_length=8, unique=True)
     phone_number = models.CharField(max_length=13, unique=True,default=None)
     email = models.CharField(max_length=100, default=None)
