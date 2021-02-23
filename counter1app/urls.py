@@ -25,6 +25,7 @@ urlpatterns = [
     path('success_report/', views.success_report, name='success_report'),
     url('^user_page/$',views.user_page,name='user_page'),
     path('create_user/', user_views.create_user,name = 'create'),
+    path('create_user/', views.InvitationView.as_view(),name = 'invitation'),
     url(r'^editSupervisor/(\d+)', views.edit_superlist, name='editSupervisor'),
     path('user_list/',views.user_list,name = 'user_list'),
 
