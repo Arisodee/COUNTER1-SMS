@@ -434,75 +434,29 @@ def create_user(request):
             '''
             above line of code displays a user registered in a specific sacco or orgamisation by counter1
             '''
-            
-            messages.success(request, f'Congratulations! You have succesfully Added a new User!')
-            # return redirect('/user_list/')
-    def post(self, request):
-        context = {
-            'data': request.POST,
-            'has_error': False
-        }
-        email = request.POST.get('email')
-        phone_number = request.POST.get('number')
-        full_name = request.POST.get('name')
-        id_number = request.POST.get('id')
-        if len(password) > 8:
-            messages.add_message(request, messages.ERROR,
-                                 'Id number should be 8 characters long')
-            context['has_error'] = True
-       
-        if not validate_email(email):
-            messages.add_message(request, messages.ERROR,
-                                 'Please provide a valid email')
-            context['has_error'] = True
-        try:
-            if User.objects.get(email=email):
-                messages.add_message(request, messages.ERROR, 'Email is taken')
-                context['has_error'] = True
-        except Exception as identifier:
-            pass
-        try:
-            if User.objects.get(phone_number=number):
-                messages.add_message(
-                    request, messages.ERROR, 'phone_number is taken')
-                context['has_error'] = True
-        except Exception as identifier:
-            pass
-        if context['has_error']:
-            return render(request, 'create_user.html', context, status=400)
-
-            user = User.objects.create_user(full_name=name, email=email)
-            user.set_password(password)
-            user.first_name = full_name
-            user.last_name = full_name
-            user.is_active = False
             user.save()
-            current_site = get_current_site(request)
-            email_subject = 'Invaitation'
-            message = render_to_string('invitation_email.html',
-                                    {
-                                        'user': user,
-                                        'domain': current_site.domain,
-                                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                                        'token': generate_token.make_token(user)
-                                    }
-                                    )
-            email_message = EmailMessage(
-                email_subject,
-                message,
-                settings.EMAIL_HOST_USER,
-                [email]
-            )
-            EmailThread(email_message).start()
-            messages.add_message(request, messages.SUCCESS,
-                                'User created succesfully')
+            messages.success(request, f'Congratulations! You have succesfully Added a new User!')
             return redirect('/user_list/')
+    else:
+        form = Add_userForm()
+    return render(request, 'create_user.html', {"form": form})
 
 
-        else:
-            form = Add_userForm()
-        return render(request, 'create_user.html', {"form": form})
 
+class InviteUserView(View):
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except Exception as identifier:
+            user = None
+        if user is not None and generate_token.check_token(user, token):
+            user.is_active = True
+            user.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 'user is invited successfully')
+            return redirect('user_list')
+        return render(request, 'create_user.html', status=401)
 
 
 
