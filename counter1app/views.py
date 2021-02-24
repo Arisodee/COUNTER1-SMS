@@ -45,21 +45,22 @@ from django.http import JsonResponse
 # Create your views here.
 
 
-
+# class HomeView(View):]
+#     def get(self, request):
+#         return render(request, 'home.html')
 @login_required
-class HomeView(View):
-    def get(self, request):
-        return render(request, 'home.html')
-
 def index(request):
-    return render(request,'index.html')
+    contacts=Profile.objects.filter().count()
+    sms_count = Talking.objects.filter().count()
+    groups=Group.objects.filter().count()
+    return render(request,'home.html',{'contacts':contacts, 'sms_count':sms_count, 'groups':groups})
 
 
 
-class SmsNumJsonView(View):
-    def get(self, *args, **kwargs):
-        sms_count = Talking.objects.filter().count()
-        return JsonResponse({'sms_count':sms_count})
+# class SmsNumJsonView(View):
+#     def get(self, *args, **kwargs):
+#         sms_count = Talking.objects.filter().count()
+#         return JsonResponse({'sms_count':sms_count})
 
 
 class EmailThread(threading.Thread):

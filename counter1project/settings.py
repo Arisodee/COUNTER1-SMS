@@ -30,7 +30,7 @@ API_KEY =config('API_KEY')
 # SECURITY WARNING: don't run with debug turned on in productionform!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '22a1ea136f57.ngrok.io ']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'f2987ec881f6.ngrok.io']
 
 # Application definition
 

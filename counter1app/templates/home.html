@@ -17,13 +17,17 @@
       margin-top: -25%;
       height: 40vh;
     }
-   
+   .account-balance{
+    margin-right: 2%;
+    float: right;
+     
+   }
     </style>
     
 <header >
 
 <div class="jumbotron jumbotron-fluid" style="background-color:rgb(41, 212, 41); font-family: 'Reggae One', cursive;" >
-  
+  <div class="account-balance"><button href="" class="btn btn-warning ">Account balance <br> Ksh. 1000</button></div>
   <div class="container">
       <h2 style="color:white;"><strong>Dashboard</strong></h2>
       <h5 style="color:white;">Counter1  server  SMS</h5>
@@ -41,17 +45,17 @@
               <p id="">Number of Sms</p>
               <div class="row align-items-start">
                 <div class="col">
-                    <h2 id="counter">0</h2>
+                    <h2 id="">{{sms_count}}</h2>
                     <!-- <img src="/img/zero.png" width="42" height="50"> -->
                     <p>Today</p>
                 </div>
                 <div class="col">
-                    <h2 id="countermonth">0</h2>
+                    <h2 id="countermonth">{{sms_count}}</h2>
                     <!-- <img src="/img/zero.png" width="42" height="50"> -->
                     <p>A Month</p>
                 </div>
                 <div class="col">
-                    <h2 id="counter" >0</h2>
+                    <h2 id="" >{{sms_count}}</h2>
                     <!-- <img src="/img/zero.png" width="42" height="50"> -->
                   <p>A year</p>
                 </div>
@@ -65,17 +69,17 @@
             <p>Summary</p>
             <div class="row align-items-start">
                 <div class="col">
-                    <h2>0</h2>
+                    <h2>{{contacts}}</h2>
                     
                     <p>Contacts</p>
                 </div>
                 <div class="col">
-                    <h2>0</h2>
+                    <h2>{{groups}}</h2>
                     
                     <p>Groups</p>
                 </div>
                 <div class="col">
-                    <h2>0</h2>
+                    <h2>2</h2>
                    
                   <p>Scheduled SMS</p>
                 </div>
