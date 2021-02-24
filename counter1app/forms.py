@@ -1,6 +1,5 @@
 from django import forms
-from .models import Talking, Add_user
-
+from .models import Talking, Add_user, Group, Profile
 from django.contrib.auth.forms import UserCreationForm  
 from django.contrib.auth.models import User  
 
@@ -63,3 +62,14 @@ class EditSupervisor(forms.ModelForm):
         
         }
 
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('first_name','last_name','email','phone')
+
+
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name','contact']
