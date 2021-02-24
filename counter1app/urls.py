@@ -17,6 +17,7 @@ urlpatterns = [
     # path('', login_required(views.HomeView.as_view()), name='home'),
     path('activate/<uidb64>/<token>',  views.ActivateAccountView.as_view(), name='activate'),
     path('invite/<uidb64>/<token>',  views.InviteUserView.as_view(), name='invite'),
+    path('create_user/', views.InvitationView.as_view(),name = 'invitation'),
     path('set-new-password/<uidb64>/<token>',  views.SetNewPasswordView.as_view(), name='set-new-password'),
     path('request-reset-email', views.RequestResetEmailView.as_view(), name='request-reset-email'),
     path('',HomeView.as_view(), name='home'),
@@ -25,7 +26,6 @@ urlpatterns = [
     path('success_report/', views.success_report, name='success_report'),
     url('^user_page/$',views.user_page,name='user_page'),
     path('create_user/', user_views.create_user,name = 'create'),
-    path('create_user/', views.InvitationView.as_view(),name = 'invitation'),
     url(r'^editSupervisor/(\d+)', views.edit_superlist, name='editSupervisor'),
     path('user_list/',views.user_list,name = 'user_list'),
 
