@@ -2,11 +2,10 @@
 
 {% block content %}
     <div class=" send-sms-form ">
-        <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8 sms-form" >
                 <div class="form-group">
-                    <form action="" method="POST">{% csrf_token %}
+                    <form  action="" method="POST">{% csrf_token %}
                     {{ form.as_p }}
                     <button  class="btn btn-success" type="submit">Submit</button><br><br>
                     </form>
@@ -17,23 +16,4 @@
         
     </div>
 
-<style>
-    body{
-        background-color: rgb(235, 240, 235);
-        width: 100%;
-        
-    }
-
-    .send-sms-form{
-        margin-top: 2%;
-        margin-bottom: 7%;
-        
-    }
-
-    .sms-form{
-        border: 2px solid rgb(100, 168, 100);
-        background-color: rgb(247, 181, 59);
-
-    }
-</style>
 {% endblock %}

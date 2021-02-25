@@ -1,32 +1,9 @@
 from django import forms
-from .models import Talking, Add_user
-
+from .models import Talking, Add_user, Group, Profile ,Sending
 from django.contrib.auth.forms import UserCreationForm  
 from django.contrib.auth.models import User  
-from .models import Talking
 
-# class GroupForm(forms.ModelForm):
-#     class Meta:
-#         model = Group
-#         fields = ['name','contact']
 
-# #sending sms form user form
-
-class TalkingForm(forms.ModelForm):
-    
-    class Meta:
-        model = Talking
-        fields = ['username', 'api_key', 'recipients', 'message', 
-                  'sender_id'
-                ]
-
-        widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'api_key': forms.TextInput(attrs={'class': 'form-control'}),
-            'recipients': forms.TextInput(attrs={'class': 'form-control'}),
-            'message': forms.TextInput(attrs={'class': 'form-control'}),
-            'sender_id': forms.TextInput(attrs={'class': 'form-control'}),
-        }
 
 
 class TalkingForm(forms.ModelForm):
@@ -88,3 +65,29 @@ class EditSupervisor(forms.ModelForm):
         
         }
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('first_name','last_name','email','phone')
+
+
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name','contact']
+
+
+class SendingForm(forms.ModelForm):
+
+    class Meta:
+        model = Sending
+        fields = ['recipients', 'message', 
+                  
+                ]
+
+        widgets = {
+          
+            'recipients': forms.TextInput(attrs={'class': 'form-control'}),
+            'message': forms.TextInput(attrs={'class': 'form-control'}),
+        
+        }

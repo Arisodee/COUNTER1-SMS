@@ -1,18 +1,15 @@
-
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-# from .models import Group,Contact
-from .forms import TalkingForm
-from django.shortcuts import render
+from .models import Group
 from django.conf import settings                                                                                                                                                       
 from django.http import HttpResponse, Http404
 from django.http import HttpResponseRedirect
-from .forms import TalkingForm
+from .forms import TalkingForm, ProfileForm,GroupForm ,SendingForm
 
 import csv
 import io
 from django.contrib import messages
-from .models import Profile,Add_user,Talking
+from .models import Profile,Add_user,Talking ,Sending
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, TemplateView
@@ -39,6 +36,14 @@ from .forms import Add_userForm,EditSupervisor
 from django.contrib.auth import logout
 from django.views.generic import (DetailView)
 from django.views.generic import View
+from django.views.generic import UpdateView
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
+from .models import Group,Profile
+from django.views.generic import UpdateView,DeleteView,View
+from django.http import JsonResponse
+
+# Create your views here.
 
 
 
@@ -353,10 +358,6 @@ def profile_upload(request):
     return render(request, template, context)
 
 
-def index(request):
-    return render(request,'index.html')
-
-
 def dashboard(request):
     return render(request, 'simple_sidebar.html')
 
@@ -365,6 +366,7 @@ def index (request):
 
 def user_page (request):
     return render (request,'user.html')
+
   
 # Create your views here.
 def homepage(request):
@@ -407,6 +409,7 @@ def search_group(request):
 
 def user_page (request):
     return render (request,'user.html')
+
 
 
 
@@ -453,3 +456,121 @@ def edit_superlist(request, supervisor_id):
     else:
         form = EditSupervisor(instance=supervisor)
     return render(request, 'edit_user.html', {"form": form, "supervisor":supervisor})
+
+    return render(request,template, context)
+# @login_required(login_url='/loginViews')
+def addContact(request):
+    '''
+    adding a contact to be texted
+    '''
+    if request.method == 'POST':
+        new_contact = ProfileForm(request.POST)
+           
+        if new_contact.is_valid():
+            contact = new_contact.save(commit=False)
+            contact.save()
+            messages.success(request,'Success! Contact added successfully.')
+            return redirect('coun:allcontacts')
+    else:
+        new_contact=ProfileForm()
+        # return redirect('add-contact')
+        return render(request,'createUser.html',{"new_contact":new_contact})
+
+def register_user(request):
+    current_user = request.user
+    if request.method =='POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            formUser = form.save(commit=False)
+            formUser.user = current_user
+            formUser.save()
+            return redirect('user_page')
+    else:
+        form = ProfileForm()
+    
+    return render(request,"register_user.html",{"formUser":form})
+
+
+def user_page (request):
+    groups = Group.get_groups()
+    all_contacts = Profile.objects.all()
+    if request.method == "POST":
+        form = GroupForm(request.POST,request.FILES)
+        if form.is_valid():
+            group = form.save(commit=False)
+            group.save()
+        return redirect('user_page')
+    else:
+        form = GroupForm()
+    context = { 'groups': groups, 'form': form,'data':all_contacts}
+    
+    return render (request,'user/user.html',context)
+
+def search_results(request):
+    if 'group' in request.GET and request.GET["group"]:
+        search_term= request.GET.get("group")
+        searched_groups = Group.search_by_name(search_term)
+        message = f"{search_term}"
+
+        context = {'groups':searched_groups,'message': message}
+
+        return render(request, "user/search.html",context)
+    else:
+      message = "You haven't searched for any group"
+      return render(request, 'user/search.html',{"message":message})   
+
+class GroupUpdateView(UpdateView):
+    model = Group
+    template_name = 'user/Update.html'   
+    fields= ['name','contact']  
+    success_url = ('/user_page')  
+
+def updategroup(request):
+    form = GroupForm()
+    context = {'form' : form}
+    return render(request, 'user/update.html', context)    
+
+class GroupDeleteView(DeleteView):
+    model = Group
+    template_name = 'user/delete.html'
+    success_url = ('/user_page')
+
+def deleteForm(request):
+    context ={     
+    }
+    return render(request ,'user/delete.html', context )
+
+    
+class update_contact(UpdateView):
+    model = Profile
+    template_name = 'user/edit_contact.html'
+    fields = ['first_name','last_name','email','phone']
+    success_url = reverse_lazy('user_page')
+            
+def deletegroup(request):
+    context = {'object:title' : group}
+    return render(request, 'user/delete.html', context)
+
+class SmsNumJsonView(View):
+    def get(self,*args, **kwargs):
+        sms_count = Profile.objects.filter().count()
+        return JsonResponse({'sms_count':sms_count})
+
+def sending_view(request):
+    if request.method == 'POST':
+        form = SendingForm(request.POST)
+        if form.is_valid():
+            recipients = form.cleaned_data['recipients']
+            message = form.cleaned_data['message']            
+            form.save()
+            return HttpResponseRedirect('/success_report/')
+
+    else:
+        form = SendingForm()
+
+    context = {'form': form}
+    return render(request, "sms_user.html", context)
+
+def success_report(request):
+    context = {}
+    return render(request, "delivered.html", context)

@@ -177,3 +177,11 @@ LOGOUT_REDIRECT_URL='login'
 # SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'      
 # SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 ' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+BROKER_URL = 'amqp://'
+CELERY_ACCEPT_CONTENT = ['pickle']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
