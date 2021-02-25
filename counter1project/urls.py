@@ -27,7 +27,6 @@ urlpatterns = [
     path('', include('counter1app.urls')), 
     path('upload-csv/', profile_upload, name="profile_upload"),
     path('accounts/', include('django.contrib.auth.urls')),
-    # path('tinymce/', include('tinymce.urls')),
+
 
 ]
-

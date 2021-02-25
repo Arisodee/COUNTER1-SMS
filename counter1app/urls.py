@@ -9,7 +9,6 @@ from django.conf import settings
 from . import views as user_views
 from counter1app.views import profile_upload
 
-
     
 urlpatterns = [
     url('^dashboard/$',views.dashboard,name='dashboard'),
@@ -39,6 +38,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/',GroupDeleteView.as_view(), name="deleteForm"),
     path('sms-json/',SmsNumJsonView.as_view(),name = 'sms-json'),
     path('search',views.search_results,name = 'search_results'),
+    path('invitation/<uidb64>/<token>',  views.InviteUserView.as_view(), name='invitation'),
 
 ]
 

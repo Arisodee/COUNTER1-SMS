@@ -66,8 +66,11 @@ class Count(models.Model):
         return str(self.username)
 
 
+
+
 class Add_user(models.Model):
     full_name = models.CharField(max_length=100)
+    username = models.CharField(max_length=10,default=0)
     id_number = models.CharField(max_length=8, unique=True)
     phone_number = models.CharField(max_length=13, unique=True,default=None)
     email = models.CharField(max_length=100, default=None)
