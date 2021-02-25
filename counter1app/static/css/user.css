@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 input{
-    width: 300px;
+    width: 100%;
     padding: 9px;
     border-radius: 10px;
     border-width: 1px;
@@ -35,7 +35,7 @@ th{
 }
 
 .green-button{
-    background-color: rgb(7, 185, 7);
+    background-color:rgb(99, 233, 65);
     padding: 10px;
     cursor: pointer;
     border: none;
@@ -43,9 +43,8 @@ th{
     width: 180px;
     color: white;
 }
-
 .blue-button{
-    background-color: rgb(10, 72, 206);
+    background-color: rgb(247, 181, 59);
     padding: 10px;
     cursor: pointer;
     border: none;

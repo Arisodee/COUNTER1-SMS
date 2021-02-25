@@ -1,107 +1,127 @@
-{% extends 'user/base.html' %}{% load static %}{% load crispy_forms_tags %}{% load bootstrap4 %}{% block content %}
-<div id="counter-section">
-    <div id="counter" class="d-flex justify-content-center">0</div>
-    <div id="customers" class="d-flex justify-content-center">customers</div>
+{%extends 'user/base.html'%} 
+{% load crispy_forms_tags %}
+{% load static%} 
+{% load bootstrap4 %}
+<!-- Content block -->
 
-</div>
+{% block content %} 
 <div class="top">
-    <div class="top-left">
-        <button class="green-button">Add Contacts</button>
-        <button class="green-button">Add Contacts from Csv</button>
-        <button class="blue-button"><a data-toggle="modal" data-target="#exampleModal2">Add group</a></button>
-        <button class="blue-button">Send SMS</button>
-    </div>
-    <div class="top-right">
-        <input placeholder="Enter input to search" type="search" />
-    </div>
+  <div class="top-left">
+    <a href="{%url 'register_user' %}">
+    <button class='green-button'>Add Contacts</button>
+  </a>
+         
+    
+  
+      <button class="green-button" >
+        <a href="{%url 'profile_upload' %}">Add Contacts from
+          Csv</a></button>
+   
+
+
+          <button class="blue-button"><a data-toggle="modal" data-target="#exampleModal2">Add group</a></button>
+    <button class="blue-button">Send SMS</button>
+  </div>
+  
 </div>
-<hr/>
+<hr />
 <div class="bottom">
-    <div class="bottom-left">
-        <table class="table" style="width:100%">
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Phone number</th>
-                <th>email</th>
-            </tr>
-            <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td>07xxxxxxx</td>
-                <td>pk@gmail.com</td>
-            </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td>07xxxxxx</td>
-                <td>pk@gmail.com</td>
-            </tr>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>07xxxxxxx</td>
-                <td>pk@gmail.com</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="bottom-right">
-        <table style="width: 100%;">
-            <tr>
-                <th>Filter by group</th>
-            </tr>
-        </table>
-        <input class="input-small" placeholder="All" style="margin-left: 15px;" /><br/>
-        <form class="navbar-form" role="search" action="{% url 'search_results' %}">
-            <div class="filter-input">
-                <input placeholder="Search group" type="search" name="group" />
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                </div>
+  <div class="bottom-left">
+    <table class="table table-striped w-ful" >
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>email</th>
+        <th>Phone number</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dat in data %}
+      <tr>
+        <td>{{dat.id}}</td>
+        <td>{{dat.first_name}}</td>
+        <td>{{dat.last_name}}</td>
+        <td>{{dat.email}}</td>
+        <td>{{dat.phone}}</td>
+        <td>
+          <div class="row">
+            <div class="col-sm">
+                <a href="{%url 'update_contact' dat.id%}"><i class="fas fa-pen-square"></i></a>
             </div>
-        </form>
-        <table style="width: 100%;">
-            {% for group in groups %}
-            <tr>
-                <th>Group :{{group.name}}</th>
-                <th><a class="btn btn-outline-primary btn-sm mr-3" href="{% url 'updateForm' group.id %}">Edit group</a>
-                    <a class="btn btn-outline-primary btn-sm mr-3" href="{% url 'deleteForm' group.id %}">Delete group</a></th>
-            </tr>
-            <tr>
-                <th>contacts</th>
-                <th></th>
+            
+        </div>
+        </td>
 
-            </tr>
-            <tr>
-                <td>Name :{{group.contact.first_name}} </td>
-                <td>Number:{{group.contact.phone}}</td>
-            </tr>
-            {%endfor%}
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  </div>
 
-        </table>
-    </div>
+  <div class="bottom-right">
+    <table style="width: 100%;">
+      
+        <tr>
+            <th>Filter by group</th>
+        </tr>
+    </table>
+   
+    <form class="navbar-form" role="search" action="{% url 'search_results' %}">
+        <div class="filter-input">
+            <input placeholder="Search group" type="search" name="group" />
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    </form>
+    <table style="width: 100%;">
+        {% for group in groups %}
+        <tr>
+            <th>Group :{{group.name}}</th>
+            <th><a class="btn btn-outline-primary btn-sm mr-3" href="{% url 'updateForm' group.id %}">Edit group</a>
+                <a class="btn btn-outline-primary btn-sm mr-3" href="{% url 'deleteForm' group.id %}">Delete group</a></th>
+        </tr>
+        <tr>
+            <th>contacts</th>
+            <th></th>
+
+        </tr>
+        <tr>
+            <td>Name :{{group.contact.first_name}} </td>
+            <td>Number:{{group.contact.phone}}</td>
+        </tr>
+        {%endfor%}
+
+    </table>
+</div>
 </div>
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Adding Group</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div>
-            <div class="modal-body">
-                <form action=" " method="post" novalidate>
-                    {% csrf_token %} {{form|crispy}}
-                    <input type="submit" class="btn btn-sm btn-info " value="Save " />
-                    <button type="button" class="btn btn-outline-danger btn-sm " data-dismiss="modal">Close
-          </button>
-                </form>
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Adding Group</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        </div>
+        <div class="modal-body">
+            <form action=" " method="post" novalidate>
+                {% csrf_token %} {{form|crispy}}
+                <input type="submit" class="btn btn-sm btn-info " value="Save " />
+                <button type="button" class="btn btn-outline-danger btn-sm " data-dismiss="modal">Close
+      </button>
+            </form>
 
-            </div>
         </div>
     </div>
 </div>
+</div>
 
-{%endblock%}
+{% endblock %}
+
+
+   
+

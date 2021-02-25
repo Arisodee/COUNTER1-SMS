@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib import messages
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,13 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8khvy%6)npzm&4@^q=#$3yn9bzilmnzc8w$lkx5*i+w5^9om=z'
+SECRET_KEY =config('SECRET_KEY') 
+API_KEY =config('API_KEY') 
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in productionform!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'f2987ec881f6.ngrok.io']
 
 # Application definition
 
@@ -38,12 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'counter1app',
+    'counter1app.apps.Counter1AppConfig',
     'bootstrap4',
+    'import_export',    
+    'rest_framework',
     'crispy_forms',
-    'widget_tweaks',
-    'djcelery',
 ]
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,12 +72,28 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+               
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'counter1project.wsgi.application'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_HOST_USER') 
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
+
+
+
+AUTHENTICATION_BACKENDS = [
+    # 'social_core.backends.facebook.FacebookOAuth2',
+    # 'social_core.backends.github.GithubOAuth2',    
+
+    'django.contrib.auth.backends.ModelBackend',  
+]
 
 
 # Database
@@ -82,11 +102,13 @@ WSGI_APPLICATION = 'counter1project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'counter1',
-        'USER': 'kets',
-        'PASSWORD':'ketsia321',
+        'NAME': config('DB_NAME') ,
+        'USER': config('DB_USER') ,
+        'PASSWORD':config('DB_PASSWORD') ,
         'HOST': 'localhost',
-    }
+        'PORT': ''
+        
+ }
 }
 
 
@@ -123,6 +145,11 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+MESSAGE_TAGS={
+    messages.ERROR:'danger'
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -132,6 +159,23 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+LOGIN_URL='login'
+LOGIN_REDIRECT_URL='home'
+
+LOGOUT_URL='logout'
+LOGOUT_REDIRECT_URL='login'
+
+
+# SOCIAL_AUTH_FACEBOOK_KEY	=	'319365083043094'	
+# SOCIAL_AUTH_FACEBOOK_SECRET	=	'39c956013b26fa5c508f77311287996c'	
+
+
+# SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'      
+# SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 ' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 
 BROKER_URL = 'amqp://'
