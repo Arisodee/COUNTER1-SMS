@@ -556,6 +556,7 @@ class SmsNumJsonView(View):
         sms_count = Profile.objects.filter().count()
         return JsonResponse({'sms_count':sms_count})
 
+#sending function user side 
 def sending_view(request):
     if request.method == 'POST':
         form = SendingForm(request.POST)

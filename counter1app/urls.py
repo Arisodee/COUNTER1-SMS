@@ -40,10 +40,9 @@ urlpatterns = [
     path('post/<int:pk>/delete/',GroupDeleteView.as_view(), name="deleteForm"),
     path('sms-json/',SmsNumJsonView.as_view(),name = 'sms-json'),
     path('search',views.search_results,name = 'search_results'),
-    path('sending/', views.sending_view, name='sending'),
+    path('sending_view/', views.sending_view, name='sending_view'),
 
 ]
 
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-
