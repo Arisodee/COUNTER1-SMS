@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 input{
-    width: 300px;
+    width: 100%;
     padding: 9px;
     border-radius: 10px;
     border-width: 1px;
@@ -45,7 +45,7 @@ th{
 }
 
 .blue-button{
-    background-color: rgb(10, 72, 206);
+    background-color: rgb(241, 163, 19);
     padding: 10px;
     cursor: pointer;
     border: none;
