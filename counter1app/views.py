@@ -4,7 +4,7 @@ from .models import Group,Profile
 from .forms import GroupForm
 from django.views.generic import UpdateView,DeleteView,View
 from django.http import JsonResponse
-
+from .decorators import unauthenticated_user
 def index (request):
     return render (request,'index.html')
 
