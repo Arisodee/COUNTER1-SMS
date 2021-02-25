@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class=" send-sms-form ">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 sms-form" >
+                <div class="form-group">
+                    <form  action="" method="POST">{% csrf_token %}
+                    {{ form.as_p }}
+                    <button  class="btn btn-success" type="submit">Submit</button><br><br>
+                    </form>
+                </div>                
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        
+    </div>
+
+{% endblock %}
