@@ -152,8 +152,6 @@ MESSAGE_TAGS={
     messages.ERROR:'danger'
 }
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -172,10 +170,4 @@ LOGOUT_URL='logout'
 LOGOUT_REDIRECT_URL='login'
 
 
-# SOCIAL_AUTH_FACEBOOK_KEY	=	'319365083043094'	
-# SOCIAL_AUTH_FACEBOOK_SECRET	=	'39c956013b26fa5c508f77311287996c'	
-
-
-# SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'      
-# SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 ' 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')

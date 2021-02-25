@@ -421,8 +421,8 @@ class InviteUserView(View):
             user.save()
             messages.add_message(request, messages.SUCCESS,
                                  'user is invited successfully')
-            return redirect('/user_list/')
-        return render(request, 'user_list.html')
+            return redirect('send_sms.html')
+        return render(request, 'send_sms.html')
 
 
 
