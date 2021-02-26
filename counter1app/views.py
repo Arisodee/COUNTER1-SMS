@@ -1,46 +1,34 @@
-from django.conf import settings                                                                                                                                                       
-from django.http import HttpResponse, Http404
-from django.http import HttpResponseRedirect
-from .forms import TalkingForm, ProfileForm,GroupForm
+from django.conf import settings     
+from django.core.mail import EmailMessage
 
-import csv
-import io
-from django.contrib import messages
-from .models import Profile,Add_user,Talking
-
+from django.http import HttpResponse, Http404, HttpResponseRedirect,JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import View, TemplateView
-from .models import Count
-from django.http import JsonResponse
 from validate_email import validate_email
-from django.contrib.auth.models import User
+
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from .utils import generate_token
-from django.core.mail import EmailMessage
-from django.conf import settings
+
+from django.contrib import messages
+from django.contrib.auth.models import User,Group
 from django.contrib.auth import authenticate, login, logout
-
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-
-import threading
-
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.shortcuts import get_current_site
 
-from .forms import Add_userForm,EditSupervisor
-from django.contrib.auth import logout
 from django.views.generic import (DetailView)
-from django.views.generic import View
-
-
-from django.views.generic import UpdateView
+from django.views.generic import View,UpdateView,DeleteView,TemplateView 
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
-from .models import Group,Profile
-from django.views.generic import UpdateView,DeleteView,View
-from django.http import JsonResponse
+
+from .decorators import allowed_users,admin_only
+from .forms import TalkingForm, ProfileForm,GroupForm,Add_userForm,EditSupervisor
+from .models import Profile,Add_user,Talking,Group
+
+import threading
+import csv
+import io
 
 # Create your views here.
 
@@ -49,6 +37,7 @@ from django.http import JsonResponse
 #     def get(self, request):
 #         return render(request, 'home.html')
 @login_required
+@admin_only
 def index(request):
     contacts=Profile.objects.filter().count()
     sms_count = Talking.objects.filter().count()
@@ -139,6 +128,7 @@ class RegistrationView(View):
         messages.add_message(request, messages.SUCCESS,
                              'account created succesfully')
         return redirect('login')
+
 
 class LoginView(View):
     def get(self, request):
@@ -494,9 +484,13 @@ def register_user(request):
     if request.method =='POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
-            formUser = form.save(commit=False)
+            user = form.save(commit=False)
             formUser.user = current_user
-            formUser.save()
+            user.save()
+            
+            group = Group.objects.get(name='customers')
+            user.groups.add(group)
+
             return redirect('user_page')
     else:
         form = ProfileForm()
