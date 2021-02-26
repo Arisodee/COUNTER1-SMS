@@ -7,7 +7,7 @@ class TalkingForm(forms.ModelForm):
 
     class Meta:
         model = Talking
-        fields = ['recipients', 'message', 
+        fields = ['recipients', 'message', 'topup_amount', 
                   
                 ]
 
@@ -15,6 +15,7 @@ class TalkingForm(forms.ModelForm):
           
             'recipients': forms.TextInput(attrs={'class': 'form-control'}),
             'message': forms.TextInput(attrs={'class': 'form-control'}),
+            'topup_amount': forms.TextInput(attrs={'class': 'form-control'}),
         
         }
     

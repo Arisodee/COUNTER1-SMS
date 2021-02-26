@@ -11,10 +11,12 @@ from django.conf import settings
 class Talking(models.Model):
     username = models.CharField(max_length=200, blank=True, null=True)
     api_key = models.CharField(max_length=201, blank=True, null=True)
-    recipients = models.TextField(max_length=1000, blank=True, null=True)
-    message = models.TextField(max_length=200, blank=True, null=True)
+    recipients = models.TextField(max_length=1000, blank=False, null=True)
+    message = models.TextField(max_length=200, blank=False, null=True)
     sender_id = models.CharField(max_length=200, blank=True, null=True)
-    
+    topup_amount = models.CharField(max_length=200, blank=False, null=True) 
+
+
     
     def _str_(self):
         return self.username
@@ -35,6 +37,7 @@ class Talking(models.Model):
             'from': '1234',
             'message': self.message,
             'to': self.recipients,
+            'topup_amount': self.topup_amount,
         }
 
         def make_post_request():  
@@ -63,8 +66,11 @@ class Count(models.Model):
         return str(self.username)
 
 
+
+
 class Add_user(models.Model):
     full_name = models.CharField(max_length=100)
+    username = models.CharField(max_length=10,default=0)
     id_number = models.CharField(max_length=8, unique=True)
     phone_number = models.CharField(max_length=13, unique=True,default=None)
     email = models.CharField(max_length=100, default=None)
