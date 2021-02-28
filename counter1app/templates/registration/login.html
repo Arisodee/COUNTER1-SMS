@@ -1,0 +1,84 @@
+
+{% extends 'registration/base.html'%}
+{% load static %}
+
+{% block content%}
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+
+        <div class="row">
+            <div class="col-md-2">
+
+
+            </div>
+            <div class="col-md-8">
+                    <div class="card mt-5">
+                            <img src="/static/img/counter 1 serve.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+
+                           <form action="{%url 'login'%}" method="POST">
+                               {% csrf_token%}
+
+
+<div class="form-group">
+    <label for="pwd1">Username:</label>  
+        <input class="form-control form-control-sm" type="text" name="username" value="{{data.username}}" placeholder="Username">
+
+</div>
+
+<div class="form-group">
+    <label for="pwd1">Password:</label>
+        <input class="form-control form-control-sm" type="password" name="password" placeholder="Password">
+
+
+    </div>
+    <br>
+
+    <input type="submit" class="btn btn-sm btn-block btn-success" value="Login">
+
+                           </form>
+
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <hr>
+                                </div>
+                                <div class="col-md-2">
+                                    <p class="text-muted">OR</p>
+                                </div>
+                                <div class="col-md-5">
+                                    <hr>
+                                </div>
+                            </div>
+
+                           
+                            </div>
+                          </div>
+
+
+<div class="card mt-4">
+    <div class="card-body">
+        <p>
+           Need an account? <a href="{% url 'register' %}">Register</a>
+        </p>
+    </div>
+</div>
+
+
+
+
+
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+
+{% endblock %}

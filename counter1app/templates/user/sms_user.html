@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="top">
+    <div class="top-left">
+        <a href="{%url 'register_user' %}">
+            <button class='green-button'>Add Contacts</button>
+        </a>
+
+
+
+        <button class="green-button">
+            <a href="{%url 'profile_upload' %}">Upload Contacts</a></button>
+
+
+
+        <button class="blue-button"><a data-toggle="modal" data-target="#exampleModal2">Add group</a></button>
+        <a href="{% url 'sending_view' %}"><button class="blue-button">Send SMS</button></a>
+    </div>
+
+</div>
+<div class=" send-sms-form ">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 sms-form">
+        <div class="form-group">
+            <form action="" method="POST">{% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-success" type="submit">Submit</button><br><br>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Adding Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action=" " method="post" novalidate>
+                    {% csrf_token %} {{form|crispy}}
+                    <input type="submit" class="btn btn-sm btn-warning " value="Save " />
+                    <button type="button" class="btn btn-success btn-sm " data-dismiss="modal">Close
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

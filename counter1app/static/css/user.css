@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+}
+input{
+    width: 100%;
+    padding: 9px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: black;
+}
+
+/* table head */
+.table{
+    height:150px;
+    overflow:auto; 
+}
+th, td{
+    padding: 10px
+}
+th{
+    background-color: lavender;
+    border-color: black;
+}
+
+
+.top{
+   
+    height: 150px;
+    display: flex;
+}
+.top-left{
+    padding: 10px;
+    width: 60vw;
+    align-self: center;
+}
+
+.green-button{
+    background-color:rgb(99, 233, 65);
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    width: 180px;
+    color: white;
+}
+.blue-button{
+    background-color: rgb(247, 181, 59);
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    width: 180px;
+    color: white;
+}
+
+.top-right{
+    align-self: center;
+    width: 40vw;
+}
+
+
+/* Bottom parts */
+.bottom{
+    display: flex;
+}
+
+/* bottom left */
+.bottom-left{
+    padding: 10px;
+    width: 60vw;
+    align-self: center;
+}
+
+/* bottom right */
+.bottom-right{
+    width: 40vw;
+}
+.filter-input{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+}
+
+.input-small{
+    width: 80px;
+    padding: 10px;
+    border-radius: 43px;
+    border-width: 1px;
+}
+
+.delete-button{
+    background-color: rgb(245, 57, 88);
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    width: 100px;
+    color: white;
+}
