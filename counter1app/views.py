@@ -1,46 +1,34 @@
-from django.conf import settings                                                                                                                                                       
-from django.http import HttpResponse, Http404
-from django.http import HttpResponseRedirect
-from .forms import TalkingForm, ProfileForm,GroupForm
+from django.conf import settings     
+from django.core.mail import EmailMessage
 
-import csv
-import io
-from django.contrib import messages
-from .models import Profile,Add_user,Talking
-
+from django.http import HttpResponse, Http404, HttpResponseRedirect,JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import View, TemplateView
-from .models import Count
-from django.http import JsonResponse
 from validate_email import validate_email
-from django.contrib.auth.models import User
+
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from .utils import generate_token
-from django.core.mail import EmailMessage
-from django.conf import settings
+
+from django.contrib import messages
+from django.contrib.auth.models import User,Group
 from django.contrib.auth import authenticate, login, logout
-
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-
-import threading
-
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.shortcuts import get_current_site
 
-from .forms import Add_userForm,EditSupervisor
-from django.contrib.auth import logout
 from django.views.generic import (DetailView)
-from django.views.generic import View
-
-
-from django.views.generic import UpdateView
+from django.views.generic import View,UpdateView,DeleteView,TemplateView 
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
-from .models import Group,Profile
-from django.views.generic import UpdateView,DeleteView,View
-from django.http import JsonResponse
+
+from .decorators import allowed_users,admin_only
+from .forms import TalkingForm, ProfileForm,GroupForm,Add_userForm,EditSupervisor
+from .models import Profile,Add_user,Talking,Group
+
+import threading
+import csv
+import io
 
 # Create your views here.
 
@@ -49,6 +37,7 @@ from django.http import JsonResponse
 #     def get(self, request):
 #         return render(request, 'home.html')
 @login_required
+@admin_only
 def index(request):
     contacts=Profile.objects.filter().count()
     sms_count = Talking.objects.filter().count()
@@ -139,6 +128,7 @@ class RegistrationView(View):
         messages.add_message(request, messages.SUCCESS,
                              'account created succesfully')
         return redirect('login')
+
 
 class LoginView(View):
     def get(self, request):
@@ -362,6 +352,63 @@ def dashboard(request):
     return render(request, 'simple_sidebar.html')
 
 
+# # Create your views here.
+# class TextMessageModelApi(ModelViewSet):
+#     serializer_class = TextMessageSerializer
+#     base_name = 'text_messages'
+
+#     def list(self, request, *args, **kwargs):
+#         return self.get_queryset()
+
+#     def get_queryset(self):
+#         recipients = SmsRecipient.objects.all().order_by("-pk")[:5]
+#         json_payload = [SMSRecipientSerializer(recipient).data for recipient in recipients]
+#         return Response(json_payload)
+
+#     def create(self, request, *args, **kwargs):
+#         logger = get_logger(__name__).bind(
+#             action="send_sms_excel"
+#         )
+
+#         logger.debug("start")
+#         form = UploadSMSExcelForm(request.POST, request.FILES)
+#         status_, sms_and_recipients_ = form.is_valid(request)
+#         response_ = response.Response()
+#         if not status_ and isinstance(sms_and_recipients_, tuple):
+#             response_.status_code = status.HTTP_400_BAD_REQUEST
+#             response_.data = {"invalid_format": True, "extension": sms_and_recipients_[1]}
+#             return response_
+#         if isinstance(sms_and_recipients_, bool):
+#             response_.status_code = status.HTTP_400_BAD_REQUEST
+#             response_.data = {"empty_excel_file": True}
+#             return response_
+#         message = request.data.get("message")
+#         if not message:
+#             response_.status_code = status.HTTP_400_BAD_REQUEST
+#             excel = {"data": sms_and_recipients_}
+#             response_.data = {"message": "Empty message not allowed", "excel": excel, "status": status_}
+#             response_.data.update({"data": sms_and_recipients_}) if not status_ else ""
+#             return response_
+#         if not status_:
+#             response_.status_code = status.HTTP_400_BAD_REQUEST
+#             excel = {"data": sms_and_recipients_}
+#             response_.data = {"excel": excel, "in_valid_excel": True}
+#             return response_
+#         sender_id = request.data.get("sender_id")
+
+#         if status_:
+#             data = {str(message): [(value, key) for key, value in sms_and_recipients_.items()]}
+
+#             user = User.objects.get(username="guest")
+#             sms_status, result = create_send_sms_task(sms_sender=user, sms_details=data,
+#                                                       sender_id=sender_id)
+#             if sms_status:
+#                 response_.status_code = status.HTTP_200_OK
+#                 return response_
+#             else:
+#                 response_.status_code = status.HTTP_403_FORBIDDEN
+#                 response_.data = sms_status
+#                 return response_
 
 
 
@@ -376,50 +423,25 @@ def user_list(request):
     users = Add_user.objects.filter()
     return render(request,'user_list.html',{'users':users})
 
+
 def create_user(request):
     '''
     View function to add a new supervisor
     '''
     if request.method == 'POST':
         form = Add_userForm(request.POST)
-        email = request.POST.get('email')
         if form.is_valid():
             user = form.save(commit = False)
 
             '''
             above line of code displays a user registered in a specific sacco or orgamisation by counter1
             '''
-            user.is_active = False
             user.save()
-            current_site = get_current_site(request)
-            email_subject = 'Invitation to counter1'
-            message = render_to_string('invitation_email.html',
-                                    {
-                                        'user': user,
-                                        'domain': current_site.domain,
-                                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                                        'token': generate_token.make_token(user)
-                                    }
-                                    )
-            email_message = EmailMessage(
-                email_subject,
-                message,
-                settings.EMAIL_HOST_USER,
-                [email]
-            )
-            EmailThread(email_message).start()
-            messages.add_message(request, messages.SUCCESS,
-                                'invaitation sent  succesfully')
-            return redirect('/user_list/')
-
             messages.success(request, f'Congratulations! You have succesfully Added a new User!')
             return redirect('/user_list/')
     else:
         form = Add_userForm()
     return render(request, 'create_user.html', {"form": form})
-
-
-
 
 class InviteUserView(View):
     def get(self, request, uidb64, token):
@@ -435,8 +457,6 @@ class InviteUserView(View):
                                  'user is invited successfully')
             return redirect('send_sms.html')
         return render(request, 'send_sms.html')
-
-
 
 
 def edit_superlist(request, supervisor_id):
