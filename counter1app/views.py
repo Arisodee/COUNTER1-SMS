@@ -109,7 +109,7 @@ class RegistrationView(View):
         user.is_active = False
         user.save()
         current_site = get_current_site(request)
-        email_subject = 'Active your Account'
+        email_subject = 'Activate your Account'
         message = render_to_string('registration/activate.html',
                                    {
                                        'user': user,
@@ -345,7 +345,7 @@ def profile_upload(request):
             phone=column[3],
         )
     context = {}
-    return render(request, template, context)
+    return render(request, 'user/user.html', context)
 
 
 def dashboard(request):
