@@ -3,6 +3,7 @@ from __future__ import print_function
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 import json
 import requests
 from django.conf import settings
@@ -73,3 +74,40 @@ class Add_user(models.Model):
         return self.full_name
 
 
+class Schedule(models.Model):
+    username = models.CharField(max_length=200, blank=True, null=True)
+    api_key = models.CharField(max_length=201, blank=True, null=True)
+    message = models.TextField(max_length=200, blank=True, null=True)
+    sender_id = models.CharField(max_length=200, blank=True, null=True)
+    date = models.DateField(max_length=200, blank=True, null=True)
+    time = models.TimeField(max_length=(23, 59, 59), blank=True, null=True)
+    recipients = models.TextField(max_length=1000, blank=True, null=True)
+    
+    def _str_(self):
+        return self.username
+
+    
+    def save(self, *args, **kwargs):     
+
+        url = 'https://api.sandbox.africastalking.com/version1/messaging'  
+        
+        headers = {
+            'ApiKey': settings.API_KEY, 
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+        }
+        
+        data = {
+            'username': 'sandbox',
+            'from': '1234',
+            'message': self.message,
+            'to': self.recipients,
+        }
+
+        def make_post_request():  
+            response = requests.post(url=url, headers=headers, data=data )
+            return response
+        
+        print( make_post_request().json() )
+
+        return super(Schedule, self).save(*args, **kwargs)

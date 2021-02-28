@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf import settings                                                                                                                                                       
 from django.http import HttpResponse, Http404
 from django.http import HttpResponseRedirect
-from .forms import TalkingForm
+from .forms import TalkingForm,SchedulingForm
 
 import csv
 import io
@@ -33,6 +33,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import Add_userForm,EditSupervisor
 from django.contrib.auth import logout
 from django.views.generic import (DetailView)
+import schedule
+import time
 
 
 
@@ -463,3 +465,36 @@ def edit_superlist(request, supervisor_id):
     else:
         form = EditSupervisor(instance=supervisor)
     return render(request, 'edit_user.html', {"form": form, "supervisor":supervisor})
+
+
+
+
+def schedule_view(request):
+
+    if request.method == 'POST':
+        form = SchedulingForm(request.POST)
+        if form.is_valid():   
+            recipients = form.cleaned_data['recipients'] 
+            message = form.cleaned_data['message'] 
+            time = form.cleaned_data['time']
+            date = form.cleaned_data['date']       
+            form.save()
+            schedule.every().days.at(r"{}".format(time)).do(schedule_view,request)
+
+         
+            while True:
+                schedule.run_pending()
+               
+       
+            return HttpResponseRedirect('/success_schedule/')
+
+    else:
+        form = SchedulingForm()
+
+    context = {'form': form}
+    return render(request, "schedule.html", context)
+
+
+def schedule_report(request):
+    context = {}
+    return render(request, "success_schedule.html", context)
