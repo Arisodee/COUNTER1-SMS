@@ -1,5 +1,14 @@
-from django.conf import settings     
 from django.core.mail import EmailMessage
+from django.shortcuts import render
+from django.conf import settings                                                                                                                                                       
+from django.http import HttpResponse, Http404
+from django.http import HttpResponseRedirect
+from .forms import TalkingForm,SchedulingForm
+
+import csv
+import io
+from django.contrib import messages
+from .models import Profile,Add_user
 
 from django.http import HttpResponse, Http404, HttpResponseRedirect,JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -21,6 +30,8 @@ from django.views.generic import (DetailView)
 from django.views.generic import View,UpdateView,DeleteView,TemplateView 
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
+import schedule
+import time
 
 from .decorators import allowed_users,admin_only
 from .forms import TalkingForm, ProfileForm,GroupForm,Add_userForm,EditSupervisor, SendingForm
@@ -588,3 +599,36 @@ def sending_view(request):
 def notification_report(request):
     context = {}
     return render(request, "user/delivered.html", context)
+
+
+
+
+def schedule_view(request):
+
+    if request.method == 'POST':
+        form = SchedulingForm(request.POST)
+        if form.is_valid():   
+            recipients = form.cleaned_data['recipients'] 
+            message = form.cleaned_data['message'] 
+            time = form.cleaned_data['time']
+            date = form.cleaned_data['date']       
+            form.save()
+            schedule.every().days.at(r"{}".format(time)).do(schedule_view,request)
+
+         
+            while True:
+                schedule.run_pending()
+               
+       
+            return HttpResponseRedirect('/success_schedule/')
+
+    else:
+        form = SchedulingForm()
+
+    context = {'form': form}
+    return render(request, "schedule.html", context)
+
+
+def schedule_report(request):
+    context = {}
+    return render(request, "success_schedule.html", context)

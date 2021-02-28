@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'import_export',    
     'rest_framework',
     'crispy_forms',
+    'bootstrap_datepicker_plus',
 ]
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
@@ -179,3 +180,11 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+# SOCIAL_AUTH_GITHUB_KEY = 'cb36fa37ce3e11fb2eb5'      
+# SOCIAL_AUTH_GITHUB_SECRET = ' c3f4eecd55c8009db3ebd5b59407872fcb5770b0 ' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}

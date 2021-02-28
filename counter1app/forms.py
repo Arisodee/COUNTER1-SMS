@@ -1,5 +1,6 @@
 from django import forms
-from .models import Talking, Add_user, Group, Profile, Sending
+from .models import Talking, Add_user, Group, Profile, Sending, Schedule
+
 from django.contrib.auth.forms import UserCreationForm  
 from django.contrib.auth.models import User  
 
@@ -85,3 +86,20 @@ class SendingForm(forms.ModelForm):
             'recipients': forms.TextInput(attrs={'class': 'form-control'}),
             'message': forms.TextInput(attrs={'class': 'form-control'}),
         }
+class SchedulingForm(forms.ModelForm):
+
+    class Meta:
+        model = Schedule
+        fields = [ 'date','recipients','message', 'time',
+                  
+                ]
+
+        widgets = {
+          
+            'message': forms.TextInput(attrs={'class': 'form-control'}),
+            'recipients': forms.TextInput(attrs={'class': 'form-control'}),
+            'time' : forms.TextInput(attrs={'class': 'form-control'}),
+            'date' : forms.DateInput(attrs={'class' : 'form-control'}),
+            
+        }
+    
