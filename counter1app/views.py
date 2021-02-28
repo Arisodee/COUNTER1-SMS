@@ -23,8 +23,8 @@ from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 
 from .decorators import allowed_users,admin_only
-from .forms import TalkingForm, ProfileForm,GroupForm,Add_userForm,EditSupervisor
-from .models import Profile,Add_user,Talking,Group
+from .forms import TalkingForm, ProfileForm,GroupForm,Add_userForm,EditSupervisor, SendingForm
+from .models import Profile,Add_user,Talking,Group, Sending
 
 import threading
 import csv
@@ -571,3 +571,20 @@ class SmsNumJsonView(View):
     def get(self,*args, **kwargs):
         sms_count = Profile.objects.filter().count()
         return JsonResponse({'sms_count':sms_count})
+
+def sending_view(request):
+    if request.method == 'POST':
+        form = SendingForm(request.POST)
+        if form.is_valid():
+            recipients = form.cleaned_data['recipients']
+            message = form.cleaned_data['message']
+            form.save()
+            return HttpResponseRedirect('/notification_report/')
+    else:
+        form = SendingForm()
+    context = {'form': form}
+    return render(request, "user/sms_user.html", context)
+
+def notification_report(request):
+    context = {}
+    return render(request, "user/delivered.html", context)

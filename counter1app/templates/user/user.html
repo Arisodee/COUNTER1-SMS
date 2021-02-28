@@ -16,7 +16,7 @@
 
 
         <button class="blue-button"><a data-toggle="modal" data-target="#exampleModal2">Add group</a></button>
-        <a href="{% url 'lets_talk' %}"><button class="blue-button" >Send SMS</button></a>
+        <a href="{% url 'sending_view' %}"><button class="blue-button" >Send SMS</button></a>
     </div>
 
 </div>
@@ -77,8 +77,8 @@
             {% for group in groups %}
             <tr>
                 <th>Group :{{group.name}}</th>
-                <th><a class="btn btn-outline-primary btn-sm mr-3" href="{% url 'updateForm' group.id %}">Edit group</a>
-                    <a class="btn btn-outline-primary btn-sm mr-3" href="{% url 'deleteForm' group.id %}">Delete group</a></th>
+                <th><a class="btn btn-success btn-sm mr-3" href="{% url 'updateForm' group.id %}">Edit group</a>
+                    <a class="btn btn-success btn-sm mr-3" href="{% url 'deleteForm' group.id %}">Delete group</a></th>
             </tr>
             <tr>
                 <th>contacts</th>
@@ -106,8 +106,8 @@
             <div class="modal-body">
                 <form action=" " method="post" novalidate>
                     {% csrf_token %} {{form|crispy}}
-                    <input type="submit" class="btn btn-sm btn-info " value="Save " />
-                    <button type="button" class="btn btn-outline-danger btn-sm " data-dismiss="modal">Close
+                    <input type="submit" class="btn btn-sm btn-warning " value="Save " />
+                    <button type="button" class="btn btn-success btn-sm " data-dismiss="modal">Close
       </button>
                 </form>
 

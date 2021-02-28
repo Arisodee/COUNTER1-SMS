@@ -39,6 +39,8 @@ urlpatterns = [
     path('sms-json/',SmsNumJsonView.as_view(),name = 'sms-json'),
     path('search',views.search_results,name = 'search_results'),
     path('invitation/<uidb64>/<token>',  views.InviteUserView.as_view(), name='invitation'),
+    path('sending_view/', views.sending_view, name='sending_view'),
+    path('notification_report/', views.notification_report, name='notification_report'),
 
 ]
 

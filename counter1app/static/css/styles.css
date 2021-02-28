@@ -172,6 +172,11 @@ body{
     
 }
 
+.contactform{
+    margin-left: 50%;
+    margin-top: 50%;
+}
+
 .balance{
     background-color:rgb(88, 231, 69) ;
     padding: 2px;

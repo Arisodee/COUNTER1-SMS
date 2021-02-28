@@ -1,8 +1,5 @@
-{%extends "base.html"%}
-{% load bootstrap4 %}
-{%load static%}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 
 <div class="top">
@@ -23,33 +20,18 @@
     </div>
 
 </div>
-<div class="container" style="font-family: 'Jost', sans-serif; margin-left: -12%; margin-top: -5%;">
-    <div class="row">
-
-        <div class="col-md-6 mx-auto card p-5 mt-5">
-            <div class="panel panel-default" >
-
-                <div class="panel-heading">
-                    <h3 class="text-center">New Contact</h3>
-                </div>
-                <div class="panel-body">
-
-                    <form action="{%url 'register_user' %}" method="POST">
-                        {% csrf_token %}
-                        {% bootstrap_form formUser %}
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-success " value="Add Contact">
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-
+<div class=" send-sms-form ">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 sms-form">
+        <div class="form-group">
+            <form action="" method="POST">{% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-success" type="submit">Submit</button><br><br>
+            </form>
         </div>
     </div>
+    <div class="col-md-2"></div>
 </div>
-</div>
-
 
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">

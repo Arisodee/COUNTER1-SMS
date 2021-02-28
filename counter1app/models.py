@@ -102,3 +102,34 @@ class Group(models.Model):
         results = cls.objects.filter(name__icontains = search_term)
         return results
 
+class Sending(models.Model):
+    username = models.CharField(max_length=200, blank=True, null=True)
+    api_key = models.CharField(max_length=201, blank=True, null=True)
+    recipients = models.TextField(max_length=1000, blank=True, null=True)
+    message = models.TextField(max_length=200, blank=True, null=True)
+    sender_id = models.CharField(max_length=200, blank=True, null=True)
+
+
+    def _str_(self):
+        return self.username
+
+    def save(self, *args, **kwargs):
+        url = 'https://api.sandbox.africastalking.com/version1/messaging'
+        headers = {
+            'ApiKey': self.api_key,
+            'ApiKey': settings.API_KEY,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+        }
+        data = {
+            'username': 'sandbox',
+            'from': '1234',
+            'message': self.message,
+            'to': self.recipients,
+        }
+        def make_post_request():
+            response = requests.post(url=url, headers=headers, data=data )
+            return response
+            
+        print( make_post_request().json() )
+        return super(Sending, self).save(*args, **kwargs)

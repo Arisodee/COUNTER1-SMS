@@ -1,5 +1,5 @@
 from django import forms
-from .models import Talking, Add_user, Group, Profile
+from .models import Talking, Add_user, Group, Profile, Sending
 from django.contrib.auth.forms import UserCreationForm  
 from django.contrib.auth.models import User  
 
@@ -74,3 +74,14 @@ class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ['name','contact']
+
+
+class SendingForm(forms.ModelForm):
+    class Meta:
+        model = Sending
+        fields = ['recipients', 'message',
+                ]
+        widgets = {
+            'recipients': forms.TextInput(attrs={'class': 'form-control'}),
+            'message': forms.TextInput(attrs={'class': 'form-control'}),
+        }
