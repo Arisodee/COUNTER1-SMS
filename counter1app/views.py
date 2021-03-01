@@ -2,12 +2,10 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.http import HttpResponseRedirect
 from .forms import TalkingForm, ProfileForm,GroupForm
-
 import csv
 import io
 from django.contrib import messages
 from .models import Profile,Add_user,Talking
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, TemplateView
 from .models import Count
@@ -22,19 +20,13 @@ from .utils import generate_token
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
-
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-
 import threading
-
 from django.contrib.auth.decorators import login_required
-
 from .forms import Add_userForm,EditSupervisor
 from django.contrib.auth import logout
 from django.views.generic import (DetailView)
 from django.views.generic import View
-
-
 from django.views.generic import UpdateView
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy

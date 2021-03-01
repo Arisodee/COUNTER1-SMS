@@ -1,8 +1,6 @@
 from __future__ import print_function
-
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-
 import json
 import requests
 from django.conf import settings
