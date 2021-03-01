@@ -19,13 +19,14 @@ from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 from counter1app.views import profile_upload
+from counter1app.views import user_page
 
 from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('counter1app.urls')), 
-    path('upload-csv/', profile_upload, name="profile_upload"),
+    path('upload-csv/',user_page,name = 'user_page'),
     path('accounts/', include('django.contrib.auth.urls')),
 
 
