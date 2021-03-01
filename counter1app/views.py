@@ -435,24 +435,70 @@ def user_list(request):
     return render(request,'user_list.html',{'users':users})
 
 
+# def create_user(request):
+#     '''
+#     View function to add a new supervisor
+#     '''
+#     if request.method == 'POST':
+#         form = Add_userForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit = False)
+
+#             '''
+#             above line of code displays a user registered in a specific sacco or orgamisation by counter1
+#             '''
+#             user.save()
+#             messages.success(request, f'Congratulations! You have succesfully Added a new User!')
+#             return redirect('/user_list/')
+#     else:
+#         form = Add_userForm()
+#     return render(request, 'create_user.html', {"form": form})
+
+
+
+
 def create_user(request):
     '''
     View function to add a new supervisor
     '''
     if request.method == 'POST':
         form = Add_userForm(request.POST)
+        email = request.POST.get('email')
         if form.is_valid():
             user = form.save(commit = False)
 
             '''
             above line of code displays a user registered in a specific sacco or orgamisation by counter1
             '''
+            user.is_active = False
             user.save()
+            current_site = get_current_site(request)
+            email_subject = 'Invitation to counter1'
+            message = render_to_string('invitation_email.html',
+                                    {
+                                        'user': user,
+                                        'domain': current_site.domain,
+                                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                                        'token': generate_token.make_token(user)
+                                    }
+                                    )
+            email_message = EmailMessage(
+                email_subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [email]
+            )
+            EmailThread(email_message).start()
+            messages.add_message(request, messages.SUCCESS,
+                                'invaitation sent  succesfully')
+            return redirect('/user_list/')
+
             messages.success(request, f'Congratulations! You have succesfully Added a new User!')
             return redirect('/user_list/')
     else:
         form = Add_userForm()
     return render(request, 'create_user.html', {"form": form})
+
 
 class InviteUserView(View):
     def get(self, request, uidb64, token):
